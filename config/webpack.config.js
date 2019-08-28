@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MODE = process.env.NODE_ENV || "development";
 const enabledSourceMap = MODE === "development";
 
@@ -39,12 +39,13 @@ module.exports = {
     ]
   },
   output: {
-    filename: MODE !== 'production' ? 'app.js' : 'app.[contentHash].js',
+    // filename: MODE !== 'production' ? 'app.js' : 'app.[contentHash].js',
+    filename: 'app.js',
     path: path.join(__dirname, '../public')
   },
-  plugins: (
-      MODE !== 'production' ? [] : [ new HtmlWebpackPlugin({title: 'Revision control'})]
-  )
+  // plugins: (
+  //     // MODE !== 'production' ? [] : [ new HtmlWebpackPlugin({title: 'Revision control'})]
+  // )
 };
 
 if (MODE !== 'production') {
