@@ -1,5 +1,6 @@
 const path = require('path');
-const MODE = "development";
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MODE = process.env.NODE_ENV || "development";
 const enabledSourceMap = MODE === "development";
 
 module.exports = {
@@ -38,7 +39,14 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, '../build')
-  }
+    filename: MODE !== 'production' ? 'app.js' : 'app.[contentHash].js',
+    path: path.join(__dirname, '../public')
+  },
+  plugins: (
+      MODE !== 'production' ? [] : [ new HtmlWebpackPlugin({title: 'Revision control'})]
+  )
 };
+
+if (MODE !== 'production') {
+    module.exports.devtool = 'inline-source-map';
+}
