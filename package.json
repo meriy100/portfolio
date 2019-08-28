@@ -1,10 +1,19 @@
 {
-  "name": "portfolio",
+  "name": "meiry100-portfolio",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "repository": "ssh://git@github.com/meriy100/portfolio.git",
-  "author": "meriy100 <ttattataa@gmail.com>",
-  "license": "MIT",
+  "scripts": {
+    "webpack-build": "webpack --config config/webpack.config.js",
+    "webpack-watch": "webpack --watch --config config/webpack.config.js"
+  },
+  "repository": "git+ssh://git@github.com/meriy100/portofolio.git",
+  "author": "meriy100 <kouta@meriy100.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meriy100/portofolio/issues"
+  },
+  "homepage": "https://github.com/meriy100/porofolio#readme",
   "dependencies": {
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7"
