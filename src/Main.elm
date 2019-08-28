@@ -1,7 +1,12 @@
-module Main exposing(main)
+module Main exposing (main)
 
-import Html as H exposing(Html)
+import Html as H exposing (Html)
 import Html.Attributes as A
 
+
 main : Html msg
-main = H.a [ A.href "https://elm-lang.org/" ] [ H.text "Elm" ]
+main =
+    H.div []
+        [ H.p [ A.class "foo" ] [ H.text "hello" ]
+        , H.a [ A.href "https://elm-lang.org/" ] [ H.text "Elm" ]
+        ]
