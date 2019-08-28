@@ -1,0 +1,12 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/meriy100/portfolio.git",
+  "author": "meriy100 <ttattataa@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
+  }
+}
