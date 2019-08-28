@@ -7,7 +7,8 @@ import Html.Attributes as A
 main : Html msg
 main =
     H.div []
-        [ H.p [ A.class "foo" ] [ H.text "hello" ]
+        [ H.h1 [] [ H.text "meriy100 portfolio" ]
+        , H.p [ A.class "foo" ] [ H.text "hello" ]
         , H.a [ A.href "https://elm-lang.org/" ] [ H.text "Elm" ]
         , H.div [ A.class "bar" ] []
         ]
