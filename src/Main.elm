@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser as Browser
 import Browser.Navigation as Nav exposing (Key)
+import Page as Page
 import Page.Contact
 import Page.Home
 import Route as Route exposing (Route)
@@ -24,10 +25,10 @@ view : Model -> Browser.Document Msg
 view model =
     case model of
         Home _ ->
-            Page.Home.view
+            Page.view Page.Home.view
 
         Contact _ ->
-            Page.Contact.view
+            Page.view Page.Contact.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
