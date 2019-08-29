@@ -8,16 +8,13 @@ import Html.Attributes as A
 view : { title : String, content : Html msg } -> Document msg
 view { title, content } =
     { title = title ++ " - meriy100 portfolio"
-    , body = [ viewLayout content ]
+    , body = viewLayout content
     }
 
 
-viewLayout : Html msg -> Html msg
+viewLayout : Html msg -> List (Html msg)
 viewLayout content =
-    H.div [ A.class "foo" ]
-        [ content
-        , viewFooter
-        ]
+    content :: [ viewFooter ]
 
 
 viewFooter : Html msg
