@@ -1,11 +1,2 @@
 @import 'variables/color';
-
-.foo {
-  color: $base-color;
-}
-
-.bar {
-  background-color: beige;
-  width: 100px;
-  height: 100px;
-}
+@import 'block/footer';
