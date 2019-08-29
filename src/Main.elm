@@ -2,7 +2,10 @@ module Main exposing (main)
 
 import Browser as Browser
 import Browser.Navigation as Nav exposing (Key)
+import Page.Contact
 import Page.Home
+import Route as Route exposing (Route)
+import Session as Session exposing (Session)
 import Url as Url exposing (Url)
 
 
@@ -12,14 +15,19 @@ type Msg
     | ClickedLink Browser.UrlRequest
 
 
-type alias Model =
-    { key : Nav.Key
-    }
+type Model
+    = Home Session
+    | Contact Session
 
 
 view : Model -> Browser.Document Msg
 view model =
-    Page.Home.view
+    case model of
+        Home _ ->
+            Page.Home.view
+
+        Contact _ ->
+            Page.Contact.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -29,19 +37,46 @@ update msg model =
             ( model, Cmd.none )
 
         ChangedUrl url ->
-            ( model, Cmd.none )
+            changeRouteTo (Route.fromUrl url) model
 
         ClickedLink urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
                     ( model
-                    , Nav.pushUrl model.key (Url.toString url)
+                    , Nav.pushUrl (model |> toSession |> Session.toNavKey) (Url.toString url)
                     )
 
                 Browser.External href ->
                     ( model
                     , Nav.load href
                     )
+
+
+changeRouteTo : Maybe Route -> Model -> ( Model, Cmd Msg )
+changeRouteTo maybeRoute model =
+    let
+        session =
+            toSession model
+    in
+    case maybeRoute of
+        Nothing ->
+            ( Home session, Cmd.none )
+
+        Just Route.Home ->
+            ( Home session, Cmd.none )
+
+        Just Route.Contact ->
+            ( Contact session, Cmd.none )
+
+
+toSession : Model -> Session
+toSession model =
+    case model of
+        Home session ->
+            session
+
+        Contact session ->
+            session
 
 
 subscriptions : Model -> Sub Msg
@@ -51,7 +86,7 @@ subscriptions model =
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( { key = key }, Cmd.none )
+    changeRouteTo (Route.fromUrl url) (Home { key = key })
 
 
 main : Program (Maybe String) Model Msg
