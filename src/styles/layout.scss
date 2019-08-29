@@ -1,3 +1,7 @@
+@import './variables/color';
+
 body {
-  
+  background: $color1;
+  height: 100%;
+  color: $color5;
 }
