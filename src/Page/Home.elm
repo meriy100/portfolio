@@ -11,7 +11,10 @@ view =
     , body =
         [ H.div []
             [ H.h1 [] [ H.text "coming soon" ]
-            , H.a [ A.href "/contact" ] [ H.text "contact" ]
+            , H.a [ A.href "https://meriy100.github.io" ] [ H.text "old portfolio" ]
+            ]
+        , H.div []
+            [ H.a [ A.href "/contact" ] [ H.text "contact" ]
             ]
         ]
     }
