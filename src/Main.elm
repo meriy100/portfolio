@@ -1,9 +1,8 @@
 module Main exposing (main)
 
 import Browser as Browser
-import Browser.Navigation as Navigation exposing (Key)
-import Html as H exposing (Html)
-import Html.Attributes as A
+import Browser.Navigation as Nav exposing (Key)
+import Page.Home
 import Url as Url exposing (Url)
 
 
@@ -14,21 +13,13 @@ type Msg
 
 
 type alias Model =
-    {}
+    { key : Nav.Key
+    }
 
 
 view : Model -> Browser.Document Msg
 view model =
-    { title = "meriy100 portfolio"
-    , body =
-        [ H.div []
-            [ H.h1 [] [ H.text "meriy100 portfolio" ]
-            , H.p [ A.class "foo" ] [ H.text "hello" ]
-            , H.a [ A.href "https://elm-lang.org/" ] [ H.text "Elm" ]
-            , H.div [ A.class "bar" ] []
-            ]
-        ]
-    }
+    Page.Home.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -37,11 +28,20 @@ update msg model =
         None ->
             ( model, Cmd.none )
 
-        ClickedLink urlRequest ->
-            ( model, Cmd.none )
-
         ChangedUrl url ->
             ( model, Cmd.none )
+
+        ClickedLink urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model
+                    , Nav.pushUrl model.key (Url.toString url)
+                    )
+
+                Browser.External href ->
+                    ( model
+                    , Nav.load href
+                    )
 
 
 subscriptions : Model -> Sub Msg
@@ -49,9 +49,9 @@ subscriptions model =
     Sub.none
 
 
-init : Maybe String -> Url.Url -> Navigation.Key -> ( Model, Cmd Msg )
+init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
-    ( {}, Cmd.none )
+    ( { key = key }, Cmd.none )
 
 
 main : Program (Maybe String) Model Msg

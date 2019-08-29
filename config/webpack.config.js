@@ -33,7 +33,8 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         use: {
           loader: 'elm-webpack-loader',
-          options: {}
+          options: {
+          }
         }
       }
     ]
@@ -43,6 +44,9 @@ module.exports = {
     filename: 'app.js',
     path: path.join(__dirname, '../public')
   },
+  devServer: {
+    historyApiFallback: true
+  }
   // plugins: (
   //     // MODE !== 'production' ? [] : [ new HtmlWebpackPlugin({title: 'Revision control'})]
   // )
