@@ -69,6 +69,9 @@ changeRouteTo maybeRoute model =
         Just Route.Contact ->
             ( Contact session, Cmd.none )
 
+        Just _ ->
+            ( Home session, Cmd.none )
+
 
 toSession : Model -> Session
 toSession model =
