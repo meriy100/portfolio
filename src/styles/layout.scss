@@ -11,4 +11,38 @@ body {
   a{
     color: $color1;
   }
+
+  .sky {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: 0 170% 0;
+
+    animation-duration: 10000s;
+    animation-duration: 10s;
+    animation-name: rotation;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    .star {
+      width: 10px;
+      height: 10px;
+      position: fixed;
+      background-color: #ffff44;
+      display: inline-block;
+      border: 1px solid #ffff44;
+      border-radius: 25px;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
