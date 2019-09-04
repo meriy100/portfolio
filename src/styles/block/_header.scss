@@ -1,12 +1,13 @@
 @import '../variables/color';
 
 .header {
-  height: 48px;
+  height: 88px;
   width: 100%;
   position: fixed;
   z-index: 10;
 
   &__contentList {
+    box-sizing: border-box;
     height: 100%;
     display: flex;
     flex-direction: row;
