@@ -1,3 +1,5 @@
+@import '../variables/color';
+
 .header {
   height: 48px;
   width: 100%;
@@ -8,13 +10,22 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    padding: 20px;
   }
   &__contentListItem  {
     margin: 0 16px;
     padding: 0 8px;
     height: 48px;
+    width: 200px;
     line-height: 48px;
     display: block;
     font-size: 1.2em;
+    background: $color4;
+
+    a {
+      height: 100%;
+      width: 100%;
+      display: block;
+    }
   }
 }

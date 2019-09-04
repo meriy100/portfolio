@@ -5,7 +5,10 @@ html {
 }
 
 body {
-  background: $color1;
+  background: $color5;
   height: 100%;
-  color: $color5;
+  color: $color1;
+  a{
+    color: $color1;
+  }
 }

@@ -24,6 +24,8 @@ parser : Parser (Route -> a) a
 parser =
     oneOf
         [ Parser.map Home Parser.top
+        , Parser.map History (s "history")
+        , Parser.map Works (s "works")
         , Parser.map Contact (s "contact")
         ]
 
@@ -42,10 +44,10 @@ routeToString page =
                     []
 
                 History ->
-                    []
+                    [ "history" ]
 
                 Works ->
-                    []
+                    [ "works" ]
 
                 Contact ->
                     [ "contact" ]

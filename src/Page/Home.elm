@@ -11,7 +11,6 @@ view =
         H.div [ A.class "home" ]
             [ H.div [ A.class "home__content" ]
                 [ H.h1 [ A.class "home__title" ] [ H.text "coming soon" ]
-                , H.a [ A.href "/contact" ] [ H.text "contact" ]
                 ]
             ]
     }
