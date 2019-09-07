@@ -82,3 +82,10 @@ body {
     transform: rotate(360deg);
   }
 }
+
+main {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 88px 0 80px 0;
+  position: relative;
+}

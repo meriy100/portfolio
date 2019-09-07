@@ -16,7 +16,7 @@ view { title, content } =
 
 viewLayout : Html msg -> List (Html msg)
 viewLayout content =
-    Sky.viewSky :: [ viewHeader ] ++ [ content ] ++ [ viewFooter ]
+    Sky.viewSky :: [ viewHeader ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
 
 
 linkTitleFromRoute route =

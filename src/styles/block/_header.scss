@@ -1,10 +1,35 @@
 @import '../variables/color';
 
+$borderDotSize1 : 4px;
+$borderDotSeparate : 16px;
+
+
 .header {
   height: 88px;
   width: 100%;
   position: fixed;
   z-index: 10;
+  background-image: linear-gradient(to right,
+          $color2 $borderDotSize1,
+          transparent $borderDotSize1 ($borderDotSize1 + $borderDotSeparate),
+          $color2 ($borderDotSize1 + $borderDotSeparate) ($borderDotSize1 * 2 + $borderDotSeparate),
+          transparent ($borderDotSize1 * 2 + $borderDotSeparate));
+  background-size: 100px 4px;
+  background-position: bottom;
+  background-repeat: repeat-x;
+  &::after {
+    margin-top: 8px;
+    position: absolute;
+    width: 100%;
+    content: '';
+    height: 4px;
+    background-image: linear-gradient(to right,
+            transparent ($borderDotSeparate / 2) + $borderDotSize1 / 2,
+            $color2 (($borderDotSeparate / 2) + $borderDotSize1 / 2) (($borderDotSeparate / 2) + $borderDotSize1 / 2 + $borderDotSize1),
+            transparent (($borderDotSeparate / 2) + $borderDotSize1 / 2 + $borderDotSize1));
+    background-size: 100px 1px;
+    background-position: bottom;
+  }
 
   &__contentList {
     box-sizing: border-box;
