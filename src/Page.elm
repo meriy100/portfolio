@@ -1,4 +1,4 @@
-module Page exposing (view)
+module Page exposing (Page(..), view)
 
 import Browser exposing (Document)
 import Html as H exposing (Html)
@@ -7,18 +7,21 @@ import Route as Route exposing (Route)
 import Sky as Sky
 
 
-view : { title : String, content : Html msg } -> Document msg
-view { title, content } =
+type Page
+    = Home
+    | Works
+    | History
+    | Contact
+
+
+view : Page -> { title : String, content : Html msg } -> Document msg
+view page { title, content } =
     { title = title ++ " - meriy100 portfolio"
-    , body = viewLayout content
+    , body = Sky.viewSky :: [ viewHeader page ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
     }
 
 
-viewLayout : Html msg -> List (Html msg)
-viewLayout content =
-    Sky.viewSky :: [ viewHeader ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
-
-
+linkTitleFromRoute : Route -> String
 linkTitleFromRoute route =
     case route of
         Route.Home ->
@@ -34,9 +37,22 @@ linkTitleFromRoute route =
             "Contact"
 
 
-viewHeaderContentItem : Route -> Html msg
-viewHeaderContentItem route =
-    H.li [ A.class "header__contentListItem" ]
+modifierActive : Page -> Page -> String
+modifierActive currentPage page =
+    if currentPage == page then
+        "header__contentListItem--active"
+
+    else
+        ""
+
+
+viewHeaderContentItem : Route -> String -> Html msg
+viewHeaderContentItem route modifier =
+    H.li
+        (List.map
+            A.class
+            [ "header__contentListItem", modifier ]
+        )
         [ Route.linkTo route
             []
             [ route
@@ -46,14 +62,18 @@ viewHeaderContentItem route =
         ]
 
 
-viewHeader : Html msg
-viewHeader =
+viewHeader : Page -> Html msg
+viewHeader page =
+    let
+        modifier =
+            modifierActive page
+    in
     H.nav [ A.class "header" ]
         [ H.ul [ A.class "header__contentList" ]
-            [ viewHeaderContentItem Route.Home
-            , viewHeaderContentItem Route.History
-            , viewHeaderContentItem Route.Works
-            , viewHeaderContentItem Route.Contact
+            [ viewHeaderContentItem Route.Home (modifier Home)
+            , viewHeaderContentItem Route.History (modifier Works)
+            , viewHeaderContentItem Route.Works (modifier History)
+            , viewHeaderContentItem Route.Contact (modifier Contact)
             ]
         ]
 
