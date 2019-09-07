@@ -5,7 +5,87 @@ html {
 }
 
 body {
-  background: $color1;
+  background: $color5;
   height: 100%;
-  color: $color5;
+  color: $color1;
+  a{
+    color: $color1;
+  }
+
+  .sky {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: 0 170% 0;
+    animation-duration: 10000s;
+    //top: 250px;
+    //left: 500px;
+    //height: 500px;
+    //width: 500px;
+
+    //animation-duration: 10s;
+    animation-name: rotation;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    .star {
+      width: 10px;
+      height: 10px;
+      position: fixed;
+      display: inline-block;
+      border: 0px solid #ffff44;
+      border-radius: 25px;
+      &.color1  {
+        background-color: #ffc1c1;
+      }
+      &.color2  {
+        background-color: #ffc1e0;
+      }
+      &.color3  {
+        background-color: #ffc1ff;
+      }
+      &.color4  {
+        background-color: #e0c1ff;
+      }
+      &.color5  {
+        background-color: #c1c1ff;
+      }
+      &.color6  {
+        background-color: #c1e0ff;
+      }
+      &.color6  {
+        background-color: #c1ffff;
+      }
+      &.color7  {
+        background-color: #c1ffe0;
+      }
+      &.color8  {
+        background-color: #c1ffc1;
+      }
+      &.color9  {
+        background-color: #e0ffc1;
+      }
+      &.color10  {
+        background-color: #ffffc1;
+      }
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+main {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 88px 0 80px 0;
+  position: relative;
 }

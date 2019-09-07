@@ -1,0 +1,65 @@
+@import '../variables/color';
+
+$borderDotSize1 : 4px;
+$borderDotSeparate : 16px;
+
+
+.header {
+  height: 88px;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  background-image: linear-gradient(to right,
+          $color2 $borderDotSize1,
+          transparent $borderDotSize1 ($borderDotSize1 + $borderDotSeparate),
+          $color2 ($borderDotSize1 + $borderDotSeparate) ($borderDotSize1 * 2 + $borderDotSeparate),
+          transparent ($borderDotSize1 * 2 + $borderDotSeparate));
+  background-size: 100px 4px;
+  background-position: bottom;
+  background-repeat: repeat-x;
+  &::after {
+    margin-top: 8px;
+    position: absolute;
+    width: 100%;
+    content: '';
+    height: 4px;
+    background-image: linear-gradient(to right,
+            transparent ($borderDotSeparate / 2) + $borderDotSize1 / 2,
+            $color2 (($borderDotSeparate / 2) + $borderDotSize1 / 2) (($borderDotSeparate / 2) + $borderDotSize1 / 2 + $borderDotSize1),
+            transparent (($borderDotSeparate / 2) + $borderDotSize1 / 2 + $borderDotSize1));
+    background-size: 100px 1px;
+    background-position: bottom;
+  }
+
+  &__contentList {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+  }
+  &__contentListItem  {
+    margin: 0 24px;
+    padding: 0 16px;
+    height: 48px;
+    width: 200px;
+    line-height: 48px;
+    display: block;
+    font-size: 1.2em;
+    background: $color3;
+    transition: background-color 0s, width 500ms, margin 500ms;
+    border-left : $color2 solid 4px;
+
+    &--active {
+      background: $color4;
+      margin-right: 12px;
+      width: 212px;
+    }
+
+    a {
+      height: 100%;
+      width: 100%;
+      display: block;
+    }
+  }
+}

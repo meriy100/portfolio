@@ -25,10 +25,10 @@ view : Model -> Browser.Document Msg
 view model =
     case model of
         Home _ ->
-            Page.view Page.Home.view
+            Page.view Page.Home Page.Home.view
 
         Contact _ ->
-            Page.view Page.Contact.view
+            Page.view Page.Contact Page.Contact.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -68,6 +68,9 @@ changeRouteTo maybeRoute model =
 
         Just Route.Contact ->
             ( Contact session, Cmd.none )
+
+        Just _ ->
+            ( Home session, Cmd.none )
 
 
 toSession : Model -> Session
