@@ -8,7 +8,7 @@ import Sky as Sky
 
 
 type Page
-    = Home
+    = Top
     | Works
     | History
     | Contact
@@ -24,8 +24,8 @@ view page { title, content } =
 linkTitleFromRoute : Route -> String
 linkTitleFromRoute route =
     case route of
-        Route.Home ->
-            "Home"
+        Route.Top ->
+            "Top"
 
         Route.Works ->
             "Works"
@@ -70,7 +70,7 @@ viewHeader page =
     in
     H.nav [ A.class "header" ]
         [ H.ul [ A.class "header__contentList" ]
-            [ viewHeaderContentItem Route.Home (modifier Home)
+            [ viewHeaderContentItem Route.Top (modifier Top)
             , viewHeaderContentItem Route.History (modifier Works)
             , viewHeaderContentItem Route.Works (modifier History)
             , viewHeaderContentItem Route.Contact (modifier Contact)
