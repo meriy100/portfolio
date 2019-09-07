@@ -89,3 +89,32 @@ main {
   padding: 88px 0 80px 0;
   position: relative;
 }
+
+.profileLayout {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 40% 1fr;
+  height: 100%;
+}
+
+.profileFeatured {
+  grid-row: 1;
+  grid-column: 1;
+
+  padding: 64px 80px;
+
+  //background-image: url('./images/pictureImage.jpg');
+  //background-repeat: no-repeat;
+  //background-position: center;
+  //background-size: cover;
+}
+
+.profileDocument {
+  grid-row: 1;
+  grid-column: 2;
+  p {
+    margin-bottom : 4px;
+  }
+}
+
+

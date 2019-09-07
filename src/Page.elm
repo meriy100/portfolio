@@ -24,8 +24,8 @@ view page { title, content } =
 linkTitleFromRoute : Route -> String
 linkTitleFromRoute route =
     case route of
-        Route.Top ->
-            "Top"
+        Route.Profile ->
+            "Profile"
 
         Route.Works ->
             "Works"
@@ -70,7 +70,7 @@ viewHeader page =
     in
     H.nav [ A.class "header" ]
         [ H.ul [ A.class "header__contentList" ]
-            [ viewHeaderContentItem Route.Top (modifier Top)
+            [ viewHeaderContentItem Route.Profile (modifier Top)
             , viewHeaderContentItem Route.History (modifier Works)
             , viewHeaderContentItem Route.Works (modifier History)
             , viewHeaderContentItem Route.Contact (modifier Contact)

@@ -7,7 +7,7 @@ import Url.Parser as Parser exposing ((</>), Parser, oneOf, s, string)
 
 
 type Route
-    = Top
+    = Profile
     | History
     | Works
     | Contact
@@ -23,7 +23,7 @@ linkTo route attributes =
 parser : Parser (Route -> a) a
 parser =
     oneOf
-        [ Parser.map Top Parser.top
+        [ Parser.map Profile Parser.top
         , Parser.map History (s "history")
         , Parser.map Works (s "works")
         , Parser.map Contact (s "contact")
@@ -40,7 +40,7 @@ routeToString page =
     let
         pieces =
             case page of
-                Top ->
+                Profile ->
                     []
 
                 History ->

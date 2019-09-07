@@ -5,6 +5,7 @@ import Browser.Navigation as Nav exposing (Key)
 import Page as Page
 import Page.Contact
 import Page.Home
+import Page.Profile
 import Route as Route exposing (Route)
 import Session as Session exposing (Session)
 import Url as Url exposing (Url)
@@ -26,13 +27,13 @@ view : Model -> Browser.Document Msg
 view model =
     case model of
         Top _ ->
-            Page.view Page.Top Page.Home.view
+            Page.view Page.Top Page.Profile.view
 
         Contact _ ->
             Page.view Page.Contact Page.Contact.view
 
         Home _ ->
-            Page.view Page.Contact Page.Contact.view
+            Page.view Page.Works Page.Home.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -67,7 +68,7 @@ changeRouteTo maybeRoute model =
         Nothing ->
             ( Top session, Cmd.none )
 
-        Just Route.Top ->
+        Just Route.Profile ->
             ( Top session, Cmd.none )
 
         Just Route.Contact ->
