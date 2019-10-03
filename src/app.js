@@ -9,5 +9,5 @@ console.log(contents);
 // });
 
 const storageKey = "store";
-const flags = localStorage.getItem(storageKey);
-const app = Elm.Main.init({flags: flags});
+const flags = { storeKey: localStorage.getItem(storageKey), contents: contents };
+const app = Elm.Main.init({flags: JSON.stringify(flags)});

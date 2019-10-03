@@ -1,4 +1,4 @@
-module History exposing (Organization)
+module History exposing (History, decode)
 
 import Json.Decode as Decode exposing (Decoder)
 import Regex as Regex exposing (Regex)
@@ -45,11 +45,11 @@ parseMonth : String -> Maybe Month
 parseMonth str =
     let
         year =
-            case Regex.find (Regex.fromString "(\\d{4})/") str |> List.head of
+            case Regex.find (Regex.fromString "(\\d{4})/" |> Maybe.withDefault Regex.never) str |> List.head of
                 Just match ->
                     case match.submatches of
-                        [ [ Just year ] ] ->
-                            String.toInt year
+                        [ Just y ] ->
+                            String.toInt y
 
                         _ ->
                             Nothing
@@ -58,11 +58,11 @@ parseMonth str =
                     Nothing
 
         month =
-            case Regex.find (Regex.fromString "(/\\d{2})") str |> List.head of
+            case Regex.find (Regex.fromString "(/\\d{2})" |> Maybe.withDefault Regex.never) str |> List.head of
                 Just match ->
                     case match.submatches of
-                        [ [ Just month ] ] ->
-                            String.toInt month
+                        [ Just m ] ->
+                            String.toInt m
 
                         _ ->
                             Nothing
@@ -109,11 +109,11 @@ decodeDuplication =
 decodeProduct : Decoder Product
 decodeProduct =
     Decode.map5 Product
-        (Decode.field "name" Decode.string)
         (Decode.field "duplication" decodeDuplication)
+        (Decode.field "title" Decode.string)
         (Decode.field "description" Decode.string)
-        (Decode.field "technologyUsed" (Decode.list Decode.string)
-        (Decode.field "members" (Decode.list Decode.string)
+        (Decode.field "technologyUsed" (Decode.list Decode.string))
+        (Decode.field "members" (Decode.list Decode.string))
 
 
 decode : Decoder History
@@ -121,6 +121,6 @@ decode =
     Decode.list
         (Decode.map3 Organization
             (Decode.field "name" Decode.string)
-            (Decode.field "dupulication" decodeDuplication)
+            (Decode.field "duplication" decodeDuplication)
             (Decode.field "products" (Decode.list decodeProduct))
         )

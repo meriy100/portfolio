@@ -2,6 +2,8 @@ module Main exposing (main)
 
 import Browser as Browser
 import Browser.Navigation as Nav exposing (Key)
+import History as History exposing (History)
+import Json.Decode as Decode exposing (Decoder)
 import Page as Page
 import Page.Contact
 import Page.Home
@@ -94,6 +96,16 @@ toSession model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
+
+
+decodeFlag : Decoder (List History)
+decodeFlag =
+    Decode.field "contents"
+        (Decode.field "ja"
+            (Decode.field "histories"
+                (Decode.list History.decode)
+            )
+        )
 
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
