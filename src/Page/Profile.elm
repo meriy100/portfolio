@@ -10,7 +10,10 @@ view =
     , content =
         H.div [ A.class "profileLayout" ]
             [ H.div [ A.class "profileFeatured" ]
-                [ H.h1 [ A.class "profileFeatured__title" ] [ H.text "meriy100 profile" ]
+                [ H.h1 [ A.class "profileFeatured__title" ]
+                    [ H.img [ A.class "profileFeatured__icon", A.src "images/icon.jpg" ] []
+                    , H.text "meriy100 profile"
+                    ]
                 , H.address [] [ H.text "kouta@meriy100.com" ]
                 ]
             , H.article [ A.class "profileDocument" ]

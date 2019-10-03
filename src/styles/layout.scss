@@ -104,8 +104,16 @@ main {
   margin: auto;
   text-align: center;
   &__title {
+    position: relative;
     font-size: 2.0em;
     margin-bottom: 16px;
+  }
+  &__icon {
+    position: absolute;
+    border-radius: 25px;
+    left: -48px;
+    height: 40px;
+    width: 40px;
   }
 }
 
