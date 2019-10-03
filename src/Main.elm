@@ -2,10 +2,12 @@ module Main exposing (main)
 
 import Browser as Browser
 import Browser.Navigation as Nav exposing (Key)
+import Contents exposing (Contents)
 import History as History exposing (History)
 import Json.Decode as Decode exposing (Decoder)
 import Page as Page
 import Page.Contact
+import Page.History
 import Page.Home
 import Page.Profile
 import Route as Route exposing (Route)
@@ -20,21 +22,25 @@ type Msg
 
 
 type Model
-    = Top Session
-    | Home Session
-    | Contact Session
+    = Top Session Contents
+    | Home Session Contents
+    | History Session Contents
+    | Contact Session Contents
 
 
 view : Model -> Browser.Document Msg
 view model =
     case model of
-        Top _ ->
+        Top _ _ ->
             Page.view Page.Top Page.Profile.view
 
-        Contact _ ->
+        Contact _ _ ->
             Page.view Page.Contact Page.Contact.view
 
-        Home _ ->
+        History _ contents ->
+            Page.view Page.History (Page.History.view { contents = contents })
+
+        Home _ _ ->
             Page.view Page.Works Page.Home.view
 
 
@@ -65,32 +71,57 @@ changeRouteTo maybeRoute model =
     let
         session =
             toSession model
+
+        contents =
+            toContents model
     in
     case maybeRoute of
         Nothing ->
-            ( Top session, Cmd.none )
+            ( Top session contents, Cmd.none )
 
         Just Route.Profile ->
-            ( Top session, Cmd.none )
+            ( Top session contents, Cmd.none )
+
+        Just Route.History ->
+            ( History session contents, Cmd.none )
 
         Just Route.Contact ->
-            ( Contact session, Cmd.none )
+            ( Contact session contents, Cmd.none )
 
         Just _ ->
-            ( Home session, Cmd.none )
+            ( Home session contents, Cmd.none )
 
 
 toSession : Model -> Session
 toSession model =
     case model of
-        Top session ->
+        Top session _ ->
             session
 
-        Contact session ->
+        Contact session _ ->
             session
 
-        Home session ->
+        History session _ ->
             session
+
+        Home session _ ->
+            session
+
+
+toContents : Model -> Contents
+toContents model =
+    case model of
+        Top _ contents ->
+            contents
+
+        Contact _ contents ->
+            contents
+
+        History _ contents ->
+            contents
+
+        Home _ contents ->
+            contents
 
 
 subscriptions : Model -> Sub Msg
@@ -98,19 +129,27 @@ subscriptions model =
     Sub.none
 
 
-decodeFlag : Decoder (List History)
+decodeFlag : Decoder Contents
 decodeFlag =
     Decode.field "contents"
         (Decode.field "ja"
-            (Decode.field "histories"
-                (Decode.list History.decode)
+            (Decode.map
+                Contents
+                (Decode.field "history"
+                    History.decode
+                )
             )
         )
 
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
-    changeRouteTo (Route.fromUrl url) (Top { key = key })
+    let
+        contents =
+            Decode.decodeString decodeFlag (flags |> Maybe.withDefault "")
+                |> Result.withDefault { history = [] }
+    in
+    changeRouteTo (Route.fromUrl url) (Top { key = key } contents)
 
 
 main : Program (Maybe String) Model Msg

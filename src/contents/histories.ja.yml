@@ -1,5 +1,10 @@
 ja:
-  histories:
+  history:
     organizations:
       - name: 株式会社アナムネ
-        finishedMonth:
+        duplication:
+          startedMonth: 2018/06
+          finishedMonth:
+          products:
+            -
+
