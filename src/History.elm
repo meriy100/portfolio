@@ -25,7 +25,7 @@ type alias Product =
     { duplication : Duplication
     , title : String
     , description : String
-    , technology_used : List String
+    , technologyUsed : List String
     , members : List String
     }
 
@@ -106,9 +106,21 @@ decodeDuplication =
         (Decode.field "finishedMonth" (Decode.map parseFinishedMonth (Decode.nullable Decode.string) |> Decode.andThen monthHelp))
 
 
+decodeProduct : Decoder Product
+decodeProduct =
+    Decode.map5 Product
+        (Decode.field "name" Decode.string)
+        (Decode.field "duplication" decodeDuplication)
+        (Decode.field "description" Decode.string)
+        (Decode.field "technologyUsed" (Decode.list Decode.string)
+        (Decode.field "members" (Decode.list Decode.string)
+
+
 decode : Decoder History
-
-
-
---decode =
---    Decode.list (Decode.map4 Organization Decode.string ())
+decode =
+    Decode.list
+        (Decode.map3 Organization
+            (Decode.field "name" Decode.string)
+            (Decode.field "dupulication" decodeDuplication)
+            (Decode.field "products" (Decode.list decodeProduct))
+        )
