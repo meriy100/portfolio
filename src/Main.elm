@@ -5,6 +5,7 @@ import Browser.Navigation as Nav exposing (Key)
 import Page as Page
 import Page.Contact
 import Page.Home
+import Page.Profile
 import Route as Route exposing (Route)
 import Session as Session exposing (Session)
 import Url as Url exposing (Url)
@@ -17,18 +18,22 @@ type Msg
 
 
 type Model
-    = Home Session
+    = Top Session
+    | Home Session
     | Contact Session
 
 
 view : Model -> Browser.Document Msg
 view model =
     case model of
-        Home _ ->
-            Page.view Page.Home Page.Home.view
+        Top _ ->
+            Page.view Page.Top Page.Profile.view
 
         Contact _ ->
             Page.view Page.Contact Page.Contact.view
+
+        Home _ ->
+            Page.view Page.Works Page.Home.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -61,10 +66,10 @@ changeRouteTo maybeRoute model =
     in
     case maybeRoute of
         Nothing ->
-            ( Home session, Cmd.none )
+            ( Top session, Cmd.none )
 
-        Just Route.Home ->
-            ( Home session, Cmd.none )
+        Just Route.Profile ->
+            ( Top session, Cmd.none )
 
         Just Route.Contact ->
             ( Contact session, Cmd.none )
@@ -76,10 +81,13 @@ changeRouteTo maybeRoute model =
 toSession : Model -> Session
 toSession model =
     case model of
-        Home session ->
+        Top session ->
             session
 
         Contact session ->
+            session
+
+        Home session ->
             session
 
 
@@ -90,7 +98,7 @@ subscriptions model =
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
-    changeRouteTo (Route.fromUrl url) (Home { key = key })
+    changeRouteTo (Route.fromUrl url) (Top { key = key })
 
 
 main : Program (Maybe String) Model Msg
