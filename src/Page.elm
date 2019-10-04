@@ -1,5 +1,6 @@
 module Page exposing (Page(..), view)
 
+import Alert as Alert exposing (Alert)
 import Browser exposing (Document)
 import Html as H exposing (Html)
 import Html.Attributes as A
@@ -14,10 +15,10 @@ type Page
     | Contact
 
 
-view : Page -> { title : String, content : Html msg } -> Document msg
-view page { title, content } =
+view : List Alert -> Page -> { title : String, content : Html msg } -> Document msg
+view alerts page { title, content } =
     { title = title ++ " - meriy100 portfolio"
-    , body = Sky.viewSky :: [ viewHeader page ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
+    , body = Sky.viewSky :: Alert.view alerts ++ [ viewHeader page ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
     }
 
 

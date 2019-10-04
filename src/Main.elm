@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Alert as Alert exposing (Alert)
 import Browser as Browser
 import Browser.Navigation as Nav exposing (Key)
 import Contents exposing (Contents)
@@ -21,27 +22,33 @@ type Msg
     | ClickedLink Browser.UrlRequest
 
 
-type Model
+type PageModel
     = Top Session Contents
     | Home Session Contents
     | History Session Contents
     | Contact Session Contents
 
 
+type alias Model =
+    { pageModel : PageModel
+    , alerts : List Alert
+    }
+
+
 view : Model -> Browser.Document Msg
-view model =
-    case model of
+view { pageModel, alerts } =
+    case pageModel of
         Top _ _ ->
-            Page.view Page.Top Page.Profile.view
+            Page.view alerts Page.Top Page.Profile.view
 
         Contact _ _ ->
-            Page.view Page.Contact Page.Contact.view
+            Page.view alerts Page.Contact Page.Contact.view
 
         History _ contents ->
-            Page.view Page.History (Page.History.view { contents = contents })
+            Page.view alerts Page.History (Page.History.view { contents = contents })
 
         Home _ _ ->
-            Page.view Page.Works Page.Home.view
+            Page.view alerts Page.Works Page.Home.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -57,7 +64,7 @@ update msg model =
             case urlRequest of
                 Browser.Internal url ->
                     ( model
-                    , Nav.pushUrl (model |> toSession |> Session.toNavKey) (Url.toString url)
+                    , Nav.pushUrl (model.pageModel |> toSession |> Session.toNavKey) (Url.toString url)
                     )
 
                 Browser.External href ->
@@ -70,31 +77,31 @@ changeRouteTo : Maybe Route -> Model -> ( Model, Cmd Msg )
 changeRouteTo maybeRoute model =
     let
         session =
-            toSession model
+            toSession model.pageModel
 
         contents =
-            toContents model
+            toContents model.pageModel
     in
     case maybeRoute of
         Nothing ->
-            ( Top session contents, Cmd.none )
+            ( { model | pageModel = Top session contents }, Cmd.none )
 
         Just Route.Profile ->
-            ( Top session contents, Cmd.none )
+            ( { model | pageModel = Top session contents }, Cmd.none )
 
         Just Route.History ->
-            ( History session contents, Cmd.none )
+            ( { model | pageModel = History session contents }, Cmd.none )
 
         Just Route.Contact ->
-            ( Contact session contents, Cmd.none )
+            ( { model | pageModel = Contact session contents }, Cmd.none )
 
         Just _ ->
-            ( Home session contents, Cmd.none )
+            ( { model | pageModel = Home session contents }, Cmd.none )
 
 
-toSession : Model -> Session
-toSession model =
-    case model of
+toSession : PageModel -> Session
+toSession pageModel =
+    case pageModel of
         Top session _ ->
             session
 
@@ -108,9 +115,9 @@ toSession model =
             session
 
 
-toContents : Model -> Contents
-toContents model =
-    case model of
+toContents : PageModel -> Contents
+toContents pageModel =
+    case pageModel of
         Top _ contents ->
             contents
 
@@ -147,9 +154,13 @@ init flags url key =
     let
         contents =
             Decode.decodeString decodeFlag (flags |> Maybe.withDefault "")
-                |> Result.withDefault { history = [] }
     in
-    changeRouteTo (Route.fromUrl url) (Top { key = key } contents)
+    case contents of
+        Ok c ->
+            changeRouteTo (Route.fromUrl url) { pageModel = Top { key = key } c, alerts = [] }
+
+        Err error ->
+            changeRouteTo (Route.fromUrl url) { pageModel = Top { key = key } { history = [] }, alerts = [ { message = Decode.errorToString error } ] }
 
 
 main : Program (Maybe String) Model Msg
