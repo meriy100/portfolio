@@ -58,7 +58,7 @@ parseMonth str =
                     Nothing
 
         month =
-            case Regex.find (Regex.fromString "(/\\d{2})" |> Maybe.withDefault Regex.never) str |> List.head of
+            case Regex.find (Regex.fromString "/(\\d{2})" |> Maybe.withDefault Regex.never) str |> List.head of
                 Just match ->
                     case match.submatches of
                         [ Just m ] ->
@@ -118,9 +118,11 @@ decodeProduct =
 
 decode : Decoder History
 decode =
-    Decode.list
-        (Decode.map3 Organization
-            (Decode.field "name" Decode.string)
-            (Decode.field "duplication" decodeDuplication)
-            (Decode.field "products" (Decode.list decodeProduct))
+    Decode.field "organizations"
+        (Decode.list
+            (Decode.map3 Organization
+                (Decode.field "name" Decode.string)
+                (Decode.field "duplication" decodeDuplication)
+                (Decode.field "products" (Decode.list decodeProduct))
+            )
         )

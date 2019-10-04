@@ -5,6 +5,14 @@ ja:
         duplication:
           startedMonth: 2018/06
           finishedMonth:
-          products:
-            -
+        products:
+          - duplication :
+              startedMonth: 2018/06
+              finishedMonth:
+            title : String
+            description : String
+            technologyUsed :
+              - ruby
+            members :
+              - 'エンジニア : 1人'
 
