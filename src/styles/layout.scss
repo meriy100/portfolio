@@ -86,8 +86,9 @@ body {
 main {
   height: 100%;
   box-sizing: border-box;
-  padding: 88px 0 80px 0;
+  padding: 120px 0 80px 0;
   position: relative;
+  overflow-y: scroll;
 }
 
 .profileLayout {
@@ -131,5 +132,54 @@ main {
       content: "~";
       padding: 0 4px;
     }
+  }
+}
+
+.historyLayout {
+  padding: 0 80px;
+
+  &__title {
+    font-size: 2.0em;
+    margin-bottom: 16px;
+  }
+}
+
+.organization {
+  margin-bottom: 48px;
+
+  &__subject {
+    height: 32px;
+    margin-bottom: 16px;
+  }
+  &__title {
+    font-size: 1.6em;
+    display: inline;
+  }
+  .duplication {
+    display: inline;
+    margin-right: 48px;
+  }
+}
+
+.productsLayout {
+  display: grid;
+  grid-template-columns: 280px auto 240px 200px;
+
+  &__header {
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+    border-bottom: solid $color3 4px;
+  }
+  &__item {
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+
+  &__title {
+    font-size: 1.2em;
+    margin-bottom: 4px;
+  }
+  &__listItem {
+      padding-bottom: 4px;
   }
 }

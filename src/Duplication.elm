@@ -1,6 +1,6 @@
 module Duplication exposing (Duplication, decode, view)
 
-import Html as H exposing (Html)
+import Html as H exposing (Attribute, Html)
 import Html.Attributes as A
 import Json.Decode as Decode exposing (Decoder)
 import Regex as Regex exposing (Regex)

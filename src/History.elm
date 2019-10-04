@@ -1,4 +1,4 @@
-module History exposing (History, decode)
+module History exposing (History, Organization, Product, decode)
 
 import Duplication as Duplication exposing (Duplication)
 import Json.Decode as Decode exposing (Decoder)
