@@ -25,7 +25,7 @@ type Msg
 type PageModel
     = Top Session Contents
     | Home Session Contents
-    | History Session Contents
+    | History Page.History.Model
     | Contact Session Contents
 
 
@@ -44,8 +44,8 @@ view { pageModel, alerts } =
         Contact _ _ ->
             Page.view alerts Page.Contact Page.Contact.view
 
-        History _ contents ->
-            Page.view alerts Page.History (Page.History.view { contents = contents })
+        History history ->
+            Page.view alerts Page.History (Page.History.view history)
 
         Home _ _ ->
             Page.view alerts Page.Works Page.Home.view
@@ -90,7 +90,7 @@ changeRouteTo maybeRoute model =
             ( { model | pageModel = Top session contents }, Cmd.none )
 
         Just Route.History ->
-            ( { model | pageModel = History session contents }, Cmd.none )
+            ( { model | pageModel = History (Page.History.initModel session contents) }, Cmd.none )
 
         Just Route.Contact ->
             ( { model | pageModel = Contact session contents }, Cmd.none )
@@ -108,8 +108,8 @@ toSession pageModel =
         Contact session _ ->
             session
 
-        History session _ ->
-            session
+        History history ->
+            Page.History.toSession history
 
         Home session _ ->
             session
@@ -124,8 +124,8 @@ toContents pageModel =
         Contact _ contents ->
             contents
 
-        History _ contents ->
-            contents
+        History history ->
+            Page.History.toContents history
 
         Home _ contents ->
             contents
