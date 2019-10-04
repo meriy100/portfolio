@@ -1,7 +1,7 @@
 ja:
   history:
     organizations:
-      - name: 株式会社アナムネ
+      - name: 株式会社アナムネ(業務委託)
         duplication:
           startedMonth: 2018/06
           finishedMonth:
@@ -9,10 +9,246 @@ ja:
           - duplication :
               startedMonth: 2018/06
               finishedMonth:
-            title : String
-            description : String
+            title : 女性向けオンライン医療相談アプリの開発
+            description: |
+              ・要件定義
+              ・サーバーサイド設計, 開発, レビュー
+              ・フロントエンド設計, 開発, レビュー
+              ・DB設計
+              ・インフラ構築
             technologyUsed :
               - ruby
+              - AWS
+              - Heroku
+              - Stripe
+              - MySql
+              - Ruby on Rails
+              - Vue.js
+            members :
+              - 'プロダクトオーナー  : 1人'
+              -  'エンジニア : 2人'
+              -  'デザイナー: 2人'
+          - duplication :
+              startedMonth: 2018/07
+              finishedMonth: 2018/10
+            title : 医療特化情報検索サービスの開発
+            description: |
+              ・要件定義
+              ・サーバーサイド設計, 開発
+              ・フロントエンド設計, 開発
+              ・DB設計
+              ・インフラ構築
+            technologyUsed :
+              - AWS
+              - Heroku
+              - Ruby on Rails
+              - Postgresql
+              - Bing Custom Search API
+            members :
+              - 'プロダクトオーナー  : 1人'
+              - 'エンジニア : 1人'
+              - 'デザイナー: 1人'
+              - 'SEO スペシャリスト : 1'
+      - name: 株式会社ShumMaKe (業務委託)
+        duplication:
+          startedMonth: 2019/07
+          finishedMonth:
+        products:
+          - duplication :
+              startedMonth: 2019/07
+              finishedMonth:
+            title :  リゾートツアー予約, 管理システムの技術コンサル, レビュー
+            description: |
+            technologyUsed :
+              - AWS
+              - Pay.jp
+              - MySql
+              - Ruby on Rails
+              - JQuery
+            members :
+              - 'プロダクトオーナー  : 1人'
+              -  'エンジニア : 2人'
+
+      - name: ディアメディア株式会社 (業務委託)
+        duplication:
+          startedMonth: 2019/01
+          finishedMonth: 2019/09
+        products:
+          - duplication :
+              startedMonth: 2019/01
+              finishedMonth: 2019/01
+            title : Web メディア向け案件請求管理サービスの開発
+            description: |
+              ・要件定義
+              ・設計, 開発, レビュー
+              ・DB設計
+              ・インフラ構築
+            technologyUsed :
+              - Ruby on Rails
+              - JQuery
+              - AWS
+              - Stripe
+              - MySql
+            members :
+              - 'プロダクトオーナー  : 1人'
+              -  'エンジニア : 1人'
+              -  'デザイナー : 2人'
+
+
+      - name: 株式会社スタートアップテクノロジー
+        duplication:
+          startedMonth: 2019/07
+          finishedMonth: 2019/09
+        products:
+          - duplication :
+              startedMonth: 2019/07
+              finishedMonth: 2019/09
+            title : スマートコントラクトを用いたアート来歴管理, マッチングサービスの開発
+            description: |
+              ・要件定義
+              ・サーバーサイド設計, 開発, レビュー
+              ・DB設計
+            technologyUsed :
+              - Ruby on Rails
+              - AWS
+              - Stripe
+              - MySql
+              - Vue.js
+              - Stimulus.js
+            members :
+              -  'エンジニア : 2人'
+          - duplication :
+              startedMonth: 2019/02
+              finishedMonth: 2019/09
+            title :  養豚管理サービスの実装, レビュー
+            description: |
+              ・設計, 開発, レビュー
+              ・DB設計
+            technologyUsed :
+              - Ruby on Rails
+              - AWS
+              - MySql
+              - JQuery
+            members :
+              -  'エンジニア : 3人'
+
+          - duplication :
+              startedMonth: 2019/02
+              finishedMonth: 2019/09
+            title :  リゾートツアー予約, 管理システムの開発
+            description: |
+              ・要件定義
+              ・設計, 開発, レビュー
+              ・DB設計
+              ・インフラ構築
+            technologyUsed :
+              - Ruby on Rails
+              - AWS
+              - MySql
+              - JQuery
+              - Pay.jp
+            members :
+              -  'エンジニア : 3人'
+          - duplication :
+              startedMonth: 2018/10
+              finishedMonth: 2019/01
+            title : 店舗向け不動産紹介, 管理サービスの開発
+            description: |
+              ・要件定義
+              ・設計, 開発, レビュー
+              ・DB設計
+              ・インフラ構築
+            technologyUsed :
+              - Ruby on Rails
+              - AWS
+              - MySql
+              - JQuery
+            members :
+              - 'エンジニア : 2人'
+              - 'デザイナー : 2人'
+          - duplication :
+              startedMonth: 2018/07
+              finishedMonth: 2018/10
+            title : 学校向け単語帳サービス開発
+            description: |
+              ・新規機能実装における設計, 開発, レビュー
+            technologyUsed :
+              - Ruby on Rails
+              - JQuery
+              - Angular.js
+              - AWS
+              - MySQL
+            members :
+              - 'エンジニア : 2人'
+          - duplication :
+              startedMonth: 2018/06
+              finishedMonth: 2018/07
+            title : Web 広告配信管理システム開発
+            description: |
+              ・設計, 開発, レビュー
+            technologyUsed :
+              - Ruby on Rails
+              - JQuery
+              - AWS
+              - MySQL
+            members :
+              - 'プロダクトマネージャ : 1人'
+              - 'エンジニア : 3人'
+          - duplication :
+              startedMonth: 2018/04
+              finishedMonth: 2018/12
+            title : Web メディア向け案件請求管理サービスの開発
+            description: |
+              ・要件定義
+              ・設計, 開発, レビュー
+              ・DB設計
+              ・インフラ構築
+            technologyUsed :
+              - Ruby on Rails
+              - JQuery
+              - AWS
+              - MySQL
             members :
               - 'エンジニア : 1人'
+      - name: 株式会社NVT (業務委託)
+        duplication:
+          startedMonth: 2017/02
+          finishedMonth: 2017/12
+        products:
+          - title: 町工場向け, 見積管理サービスの開発
+            duplication:
+              startedMonth: 2017/02
+              finishedMonth: 2017/12
+            description: |
+              ・要件定義
+              ・設計, 開発, レビュー
+              ・DB設計
+            technologyUsed :
+              - Ruby on Rails
+              - Angular.js (TypeScript)
+              - AWS
+              - MySQL
+              - GMO ペイメントサービス
+            members :
+              - 'プロダクトオーナー : 1人'
+              - 'サーバサイドエンジニア : 1人'
+              - 'フロントエンドエンジニア: 1人'
+
+      - name: 株式会社スタートアップテクノロジー (業務委託)
+        duplication:
+          startedMonth: 2015/06
+          finishedMonth: 2018/03
+        products:
+          - title: 複数プロジェクトの実装
+            duplication:
+              startedMonth: 2015/06
+              finishedMonth: 2018/03
+            description: |
+            technologyUsed :
+              - Ruby on Rails
+              - MySQL
+              - JQuery
+            members :
+              - '割愛'
+
 
