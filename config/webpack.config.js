@@ -36,6 +36,17 @@ module.exports = {
           options: {
           }
         }
+      },
+      {
+        test: /\.(yml|yaml)$/,
+        use: [
+          {
+            loader: require.resolve('json-loader')
+          },
+          {
+            loader: require.resolve('yaml-loader')
+          }
+        ]
       }
     ]
   },

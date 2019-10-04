@@ -1,11 +1,9 @@
 import {Elm} from "./Main.elm";
-import './styles/style.scss'
+import './styles/style.scss';
 
-// Elm.Main.init({
-//     node: document.getElementById("elm-node")
-// });
+const contents = require('./contents/ja.yml');
+console.log(contents);
 
 const storageKey = "store";
-const flags = localStorage.getItem(storageKey);
-const app = Elm.Main.init({flags: flags});
-console.log("welcome webpack v4");
+const flags = { storeKey: localStorage.getItem(storageKey), contents: contents };
+const app = Elm.Main.init({flags: JSON.stringify(flags)});

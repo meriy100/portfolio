@@ -1,5 +1,6 @@
 module Page exposing (Page(..), view)
 
+import Alert as Alert exposing (Alert)
 import Browser exposing (Document)
 import Html as H exposing (Html)
 import Html.Attributes as A
@@ -8,16 +9,16 @@ import Sky as Sky
 
 
 type Page
-    = Top
+    = Profile
     | Works
     | History
     | Contact
 
 
-view : Page -> { title : String, content : Html msg } -> Document msg
-view page { title, content } =
+view : List Alert -> Page -> { title : String, content : Html msg } -> Document msg
+view alerts page { title, content } =
     { title = title ++ " - meriy100 portfolio"
-    , body = Sky.viewSky :: [ viewHeader page ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
+    , body = Sky.viewSky :: Alert.view alerts ++ [ viewHeader page ] ++ [ H.node "main" [] [ content ] ] ++ [ viewFooter ]
     }
 
 
@@ -70,9 +71,9 @@ viewHeader page =
     in
     H.nav [ A.class "header" ]
         [ H.ul [ A.class "header__contentList" ]
-            [ viewHeaderContentItem Route.Profile (modifier Top)
-            , viewHeaderContentItem Route.History (modifier Works)
-            , viewHeaderContentItem Route.Works (modifier History)
+            [ viewHeaderContentItem Route.Profile (modifier Profile)
+            , viewHeaderContentItem Route.History (modifier History)
+            , viewHeaderContentItem Route.Works (modifier Works)
             , viewHeaderContentItem Route.Contact (modifier Contact)
             ]
         ]
