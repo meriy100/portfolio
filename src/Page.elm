@@ -9,7 +9,7 @@ import Sky as Sky
 
 
 type Page
-    = Top
+    = Profile
     | Works
     | History
     | Contact
@@ -71,7 +71,7 @@ viewHeader page =
     in
     H.nav [ A.class "header" ]
         [ H.ul [ A.class "header__contentList" ]
-            [ viewHeaderContentItem Route.Profile (modifier Top)
+            [ viewHeaderContentItem Route.Profile (modifier Profile)
             , viewHeaderContentItem Route.History (modifier History)
             , viewHeaderContentItem Route.Works (modifier Works)
             , viewHeaderContentItem Route.Contact (modifier Contact)

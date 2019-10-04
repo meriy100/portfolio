@@ -26,8 +26,16 @@ type alias Duplication =
 view : Duplication -> Html msg
 view duplication =
     H.p [ A.class "duplication" ]
-        [ H.span [ A.class "duplication__startedMonth" ] [ duplication.startedMonth |> monthToString |> H.text ]
-        , H.span [] [ duplication.finishedMonth |> finishedMonthToString |> H.text ]
+        [ H.span [ A.class "duplication__startedMonth" ]
+            [ duplication.startedMonth
+                |> monthToString
+                |> H.text
+            ]
+        , H.span []
+            [ duplication.finishedMonth
+                |> finishedMonthToString
+                |> H.text
+            ]
         ]
 
 
@@ -49,34 +57,40 @@ finishedMonthToString finishedMonth =
             monthToString month
 
 
+yearRegex : Regex
+yearRegex =
+    Regex.fromString "(\\d{4})/"
+        |> Maybe.withDefault Regex.never
+
+
+monthRegex : Regex
+monthRegex =
+    Regex.fromString "/(\\d{2})"
+        |> Maybe.withDefault Regex.never
+
+
+matchToInt : Regex.Match -> Maybe Int
+matchToInt { submatches } =
+    case submatches of
+        [ Just m ] ->
+            String.toInt m
+
+        _ ->
+            Nothing
+
+
 parseMonth : String -> Maybe Month
 parseMonth str =
     let
         year =
-            case Regex.find (Regex.fromString "(\\d{4})/" |> Maybe.withDefault Regex.never) str |> List.head of
-                Just match ->
-                    case match.submatches of
-                        [ Just y ] ->
-                            String.toInt y
-
-                        _ ->
-                            Nothing
-
-                _ ->
-                    Nothing
+            Regex.find yearRegex str
+                |> List.head
+                |> Maybe.andThen matchToInt
 
         month =
-            case Regex.find (Regex.fromString "/(\\d{2})" |> Maybe.withDefault Regex.never) str |> List.head of
-                Just match ->
-                    case match.submatches of
-                        [ Just m ] ->
-                            String.toInt m
-
-                        _ ->
-                            Nothing
-
-                _ ->
-                    Nothing
+            Regex.find monthRegex str
+                |> List.head
+                |> Maybe.andThen matchToInt
     in
     case ( year, month ) of
         ( Just y, Just m ) ->
@@ -110,5 +124,13 @@ monthHelp month =
 decode : Decoder Duplication
 decode =
     Decode.map2 Duplication
-        (Decode.field "startedMonth" (Decode.map parseMonth Decode.string |> Decode.andThen monthHelp))
-        (Decode.field "finishedMonth" (Decode.map parseFinishedMonth (Decode.nullable Decode.string) |> Decode.andThen monthHelp))
+        (Decode.string
+            |> Decode.map parseMonth
+            |> Decode.andThen monthHelp
+            |> Decode.field "startedMonth"
+        )
+        (Decode.nullable Decode.string
+            |> Decode.map parseFinishedMonth
+            |> Decode.andThen monthHelp
+            |> Decode.field "finishedMonth"
+        )

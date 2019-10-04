@@ -23,7 +23,7 @@ type Msg
 
 
 type PageModel
-    = Top Session Contents
+    = Profile Session Contents
     | Home Session Contents
     | History Page.History.Model
     | Contact Session Contents
@@ -38,8 +38,8 @@ type alias Model =
 view : Model -> Browser.Document Msg
 view { pageModel, alerts } =
     case pageModel of
-        Top _ _ ->
-            Page.view alerts Page.Top Page.Profile.view
+        Profile _ _ ->
+            Page.view alerts Page.Profile Page.Profile.view
 
         Contact _ _ ->
             Page.view alerts Page.Contact Page.Contact.view
@@ -84,10 +84,10 @@ changeRouteTo maybeRoute model =
     in
     case maybeRoute of
         Nothing ->
-            ( { model | pageModel = Top session contents }, Cmd.none )
+            ( { model | pageModel = Profile session contents }, Cmd.none )
 
         Just Route.Profile ->
-            ( { model | pageModel = Top session contents }, Cmd.none )
+            ( { model | pageModel = Profile session contents }, Cmd.none )
 
         Just Route.History ->
             ( { model | pageModel = History (Page.History.initModel session contents) }, Cmd.none )
@@ -102,7 +102,7 @@ changeRouteTo maybeRoute model =
 toSession : PageModel -> Session
 toSession pageModel =
     case pageModel of
-        Top session _ ->
+        Profile session _ ->
             session
 
         Contact session _ ->
@@ -118,7 +118,7 @@ toSession pageModel =
 toContents : PageModel -> Contents
 toContents pageModel =
     case pageModel of
-        Top _ contents ->
+        Profile _ contents ->
             contents
 
         Contact _ contents ->
@@ -138,15 +138,11 @@ subscriptions model =
 
 decodeFlag : Decoder Contents
 decodeFlag =
-    Decode.field "contents"
-        (Decode.field "ja"
-            (Decode.map
-                Contents
-                (Decode.field "history"
-                    History.decode
-                )
-            )
-        )
+    History.decode
+        |> Decode.field "history"
+        |> Decode.map Contents
+        |> Decode.field "ja"
+        |> Decode.field "contents"
 
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -157,10 +153,16 @@ init flags url key =
     in
     case contents of
         Ok c ->
-            changeRouteTo (Route.fromUrl url) { pageModel = Top { key = key } c, alerts = [] }
+            changeRouteTo (Route.fromUrl url)
+                { pageModel = Profile { key = key } c
+                , alerts = []
+                }
 
         Err error ->
-            changeRouteTo (Route.fromUrl url) { pageModel = Top { key = key } { history = [] }, alerts = [ { message = Decode.errorToString error } ] }
+            changeRouteTo (Route.fromUrl url)
+                { pageModel = Profile { key = key } Contents.init
+                , alerts = [ { message = Decode.errorToString error } ]
+                }
 
 
 main : Program (Maybe String) Model Msg
