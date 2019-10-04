@@ -125,3 +125,11 @@ main {
 }
 
 
+.duplication {
+  &__startedMonth {
+    &:after {
+      content: "~";
+      padding: 0 4px;
+    }
+  }
+}

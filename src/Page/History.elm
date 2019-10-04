@@ -1,6 +1,7 @@
 module Page.History exposing (Model, initModel, toContents, toSession, view)
 
 import Contents as Contents exposing (Contents)
+import Duplication as Duplication
 import History as History exposing (History)
 import Html as H exposing (Html)
 import Html.Attributes as A
@@ -51,7 +52,7 @@ viewOrganization organization =
     in
     H.div []
         [ H.h2 [] [ H.text organization.name ]
-        , H.p [] [ organization.duplication |> duplicationText |> H.text ]
+        , Duplication.view organization.duplication
         ]
 
 
