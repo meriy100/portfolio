@@ -36,7 +36,7 @@ viewWork work =
     H.div [ A.class "workPanel" ]
         [ H.a [ A.href work.url, A.target "_blank", A.class "workPanel__image" ]
             [ H.img
-                [ A.src (work.imageUrl |> Maybe.withDefault (Work.defaultImageUrl work)) ]
+                [ A.src (work.imageUrl |> Maybe.withDefault (Work.defaultImageUrl work)), A.attribute "loading" "lazy" ]
                 []
             ]
         , H.div [ A.class "workPanel__body" ]
