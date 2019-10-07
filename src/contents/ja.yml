@@ -250,5 +250,35 @@ ja:
               - JQuery
             members :
               - '割愛'
+  works:
+    - url: https://bfide.meriy100.com
+      title: Brain F*ck IDE
+      description: |
+        brai f*ck editor
+        (still debug)
+      imageUrl: images/bfide.png
+      workType: Application
+    - url: https://rubygems.org/gems/levenshtein_ruby
+      title: levenshtein_ruby
+      description: |
+        calc levenshtein distance between strings.
+        Implemented with C language extensions, faster than similar gems at the time.
+      imageUrl:
+      workType: RubyGems
 
+    - url: https://github.com/meriy100/nippou-bot-ruby
+      title: nippou bot ruby
+      description: |
+        slack bot.
+        Post a daily report to esa.io with a dialogue bot.
+        TODO : Write README.jmd
+      imageUrl:
+      workType: Application
 
+    - url: https://github.com/meriy100/local_scripts
+      title: Local Scripts
+      description: |
+        local scripts for me.
+        used shell piplines for string operation.
+      imageUrl:
+      workType: Library

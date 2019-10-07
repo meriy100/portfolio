@@ -5,45 +5,19 @@ import Helpers.HtmlHelper as HH
 import Html as H exposing (Html)
 import Html.Attributes as A
 import Session as Session exposing (Session)
-
-
-type WorkType
-    = Application
-    | Library
-
-
-type alias Work =
-    { url : String
-    , title : String
-    , description : String
-    , imageUrl : Maybe String
-    , workType : WorkType
-    }
+import Work as Work exposing (Work)
 
 
 type alias Model =
     { session : Session
     , contents : Contents
-    , works : List Work
     }
-
-
-initialWorks : List Work
-initialWorks =
-    { url = "https://bfide.meriy100.com"
-    , title = "brain f*ck ide"
-    , description = "brain f*ck editor (still debug)"
-    , imageUrl = Just "images/bfide.png"
-    , workType = Application
-    }
-        |> List.repeat 3
 
 
 initModel : Session -> Contents -> Model
 initModel session contents =
     { session = session
     , contents = contents
-    , works = initialWorks
     }
 
 
@@ -89,7 +63,7 @@ view model =
     , content =
         H.div [ A.class "worksLayout" ]
             [ H.h1 [ A.class "worksLayout__title" ] [ H.text "Works" ]
-            , model.works
+            , model.contents.works
                 |> List.map viewWork
                 |> H.div [ A.class "worksLayout__contents" ]
             ]

@@ -14,6 +14,7 @@ import Page.Works
 import Route as Route exposing (Route)
 import Session as Session exposing (Session)
 import Url as Url exposing (Url)
+import Work as Work exposing (Work)
 
 
 type Msg
@@ -138,11 +139,13 @@ subscriptions model =
 
 decodeFlag : Decoder Contents
 decodeFlag =
-    History.decode
-        |> Decode.field "history"
-        |> Decode.map Contents
-        |> Decode.field "ja"
-        |> Decode.field "contents"
+    Decode.field "contents"
+        (Decode.field "ja"
+            (Decode.map2 Contents
+                (Decode.field "history" History.decode)
+                (Decode.field "works" (Decode.list Work.decode))
+            )
+        )
 
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
