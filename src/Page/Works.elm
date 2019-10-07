@@ -31,18 +31,13 @@ toContents model =
     model.contents
 
 
-noImage : Html msg
-noImage =
-    H.div [ A.class "noImage" ] [ H.text "No Image" ]
-
-
 viewWork : Work -> Html msg
 viewWork work =
     H.div [ A.class "workPanel" ]
         [ H.a [ A.href work.url, A.target "_blank", A.class "workPanel__image" ]
-            [ work.imageUrl
-                |> Maybe.andThen (\iu -> H.img [ A.src iu ] [] |> Just)
-                |> Maybe.withDefault noImage
+            [ H.img
+                [ A.src (work.imageUrl |> Maybe.withDefault (Work.defaultImageUrl work)) ]
+                []
             ]
         , H.div [ A.class "workPanel__body" ]
             [ H.h2 [ A.class "workPanel__title" ] [ H.text work.title ]

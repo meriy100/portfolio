@@ -1,4 +1,4 @@
-module Work exposing (Work, decode)
+module Work exposing (Work, decode, defaultImageUrl)
 
 import Json.Decode as Decode exposing (Decoder)
 
@@ -16,6 +16,19 @@ type alias Work =
     , imageUrl : Maybe String
     , workType : WorkType
     }
+
+
+defaultImageUrl : Work -> String
+defaultImageUrl work =
+    case work.workType of
+        RubyGem ->
+            "images/rubygems.jpeg"
+
+        Library ->
+            "images/github.png"
+
+        _ ->
+            "images/noImage.png"
 
 
 stringToWorkType : String -> Maybe WorkType
