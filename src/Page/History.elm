@@ -2,6 +2,7 @@ module Page.History exposing (Model, initModel, toContents, toSession, view)
 
 import Contents as Contents exposing (Contents)
 import Duplication as Duplication
+import Helpers.HtmlHelper as HH
 import History as History exposing (History, Organization, Product)
 import Html as H exposing (Html)
 import Html.Attributes as A
@@ -44,19 +45,6 @@ view model =
     }
 
 
-nl2br : List String -> List (Html msg)
-nl2br ss =
-    case ss of
-        s :: [] ->
-            [ H.text s ]
-
-        s :: ss_ ->
-            H.text s :: (H.br [] [] :: nl2br ss_)
-
-        [] ->
-            []
-
-
 viewProduct : Product -> List (Html msg)
 viewProduct product =
     [ H.div [ A.class "productsLayout__item" ] [ Duplication.view product.duplication ]
@@ -64,7 +52,7 @@ viewProduct product =
         [ H.h3 [ A.class "productsLayout__title" ] [ H.text product.title ]
         , product.description
             |> String.lines
-            |> nl2br
+            |> HH.nl2br
             |> H.p []
         ]
     , product.technologyUsed

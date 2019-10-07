@@ -9,7 +9,7 @@ body {
   height: 100%;
   color: $color1;
   a{
-    color: $color1;
+    color: $color2;
   }
 
   .sky {
@@ -189,5 +189,51 @@ main {
   }
   &__listItem {
       padding-bottom: 4px;
+  }
+}
+
+.worksLayout {
+  padding: 0 80px;
+  &__title {
+    font-size: 2.0em;
+    margin-bottom: 16px;
+  }
+  &__contents {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.workPanel {
+  width: 240px;
+  margin: 0 12px 24px 12px;
+  background-color: $color3;
+  padding: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+
+  &__image {
+    height: 260px;
+    display: block;
+    overflow: hidden;
+    padding-bottom: 24px;
+    img {
+      object-fit: contain;
+      width: 100%;
+      max-height: 100%;
+    }
+  }
+  &__body {
+    padding-bottom: 16px;
+  }
+  &__title {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+  }
+  &__description {
+    height: 80px;
+  }
+  &__footer {
+    width: 100%;
+    word-break: break-all;
   }
 }

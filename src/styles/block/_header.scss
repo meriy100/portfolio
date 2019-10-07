@@ -50,6 +50,7 @@ $borderDotSeparate : 16px;
     background: $color3;
     transition: background-color 0s, width 500ms, margin 500ms;
     border-left : $color2 solid 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 
     &--active {
       background: $color4;

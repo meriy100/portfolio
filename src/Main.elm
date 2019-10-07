@@ -9,11 +9,12 @@ import Json.Decode as Decode exposing (Decoder)
 import Page as Page
 import Page.Contact
 import Page.History
-import Page.Home
 import Page.Profile
+import Page.Works
 import Route as Route exposing (Route)
 import Session as Session exposing (Session)
 import Url as Url exposing (Url)
+import Work as Work exposing (Work)
 
 
 type Msg
@@ -24,7 +25,7 @@ type Msg
 
 type PageModel
     = Profile Session Contents
-    | Home Session Contents
+    | Works Page.Works.Model
     | History Page.History.Model
     | Contact Session Contents
 
@@ -41,14 +42,14 @@ view { pageModel, alerts } =
         Profile _ _ ->
             Page.view alerts Page.Profile Page.Profile.view
 
+        Works works ->
+            Page.view alerts Page.Works (Page.Works.view works)
+
         Contact _ _ ->
             Page.view alerts Page.Contact Page.Contact.view
 
         History history ->
             Page.view alerts Page.History (Page.History.view history)
-
-        Home _ _ ->
-            Page.view alerts Page.Works Page.Home.view
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -95,8 +96,8 @@ changeRouteTo maybeRoute model =
         Just Route.Contact ->
             ( { model | pageModel = Contact session contents }, Cmd.none )
 
-        Just _ ->
-            ( { model | pageModel = Home session contents }, Cmd.none )
+        Just Route.Works ->
+            ( { model | pageModel = Works (Page.Works.initModel session contents) }, Cmd.none )
 
 
 toSession : PageModel -> Session
@@ -111,8 +112,8 @@ toSession pageModel =
         History history ->
             Page.History.toSession history
 
-        Home session _ ->
-            session
+        Works works ->
+            Page.Works.toSession works
 
 
 toContents : PageModel -> Contents
@@ -127,8 +128,8 @@ toContents pageModel =
         History history ->
             Page.History.toContents history
 
-        Home _ contents ->
-            contents
+        Works works ->
+            Page.Works.toContents works
 
 
 subscriptions : Model -> Sub Msg
@@ -138,11 +139,13 @@ subscriptions model =
 
 decodeFlag : Decoder Contents
 decodeFlag =
-    History.decode
-        |> Decode.field "history"
-        |> Decode.map Contents
-        |> Decode.field "ja"
-        |> Decode.field "contents"
+    Decode.field "contents"
+        (Decode.field "ja"
+            (Decode.map2 Contents
+                (Decode.field "history" History.decode)
+                (Decode.field "works" (Decode.list Work.decode))
+            )
+        )
 
 
 init : Maybe String -> Url -> Nav.Key -> ( Model, Cmd Msg )
