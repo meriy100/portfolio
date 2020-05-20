@@ -1,10 +1,28 @@
 ja:
   history:
     organizations:
+      - name: 株式会社フォトシンス Photosynth
+        duplication:
+          startedMonth: 2020/03
+          finishedMonth:
+        products:
+          - duplication :
+              startedMonth: 2020/03
+              finishedMonth:
+            title : スマートロック関連のプロダクト開発業務
+            description: |
+              ・サーバーサイド設計, 開発, レビュー
+              ・フロントエンド設計, 開発, レビュー
+            technologyUsed :
+              - Ruby on Rails
+              - Vue.js
+              - HIDDEN
+            members :
+              -  HIDDEN
       - name: 合同会社フレイズ (業務委託)
         duplication:
           startedMonth: 2019/12
-          finishedMonth: 2019/03
+          finishedMonth: 2019/02
         products:
           - duplication :
               startedMonth: 2019/11
@@ -123,7 +141,7 @@ ja:
           - duplication :
               startedMonth: 2019/07
               finishedMonth: 2019/09
-            title : スマートコントラクトを用いたアート来歴管理, マッチングサービスの開発
+            title : スマートコントラクトを用いたHIDDEN来歴管理, マッチングサービスの開発
             description: |
               ・要件定義
               ・サーバーサイド設計, 開発, レビュー
