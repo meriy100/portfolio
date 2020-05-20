@@ -11,6 +11,9 @@ body {
   a{
     color: $color2;
   }
+  p {
+    line-height: 24px;
+  }
 
   .sky {
     position: fixed;
@@ -185,7 +188,7 @@ main {
 
   &__title {
     font-size: 1.2em;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   &__listItem {
       padding-bottom: 4px;
