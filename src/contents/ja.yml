@@ -1,6 +1,26 @@
 ja:
   history:
     organizations:
+      - name: 合同会社フレイズ (業務委託)
+        duplication:
+          startedMonth: 2019/12
+          finishedMonth: 2019/03
+        products:
+          - duplication :
+              startedMonth: 2019/11
+              finishedMonth: 2020/02
+            title : HIDDEN
+            description: |
+              ・技術調査 (Web カメラ, 顔認識, 文字認識等)
+              ・フロントエンド設計, 開発
+            technologyUsed :
+              - TypeScript
+              - Google Cloud Platform
+              - Vue.js
+              - OpenCV
+              - face api (tensorflow.js)
+            members :
+              -  HIDDEN
       - name: 株式会社アナムネ(業務委託)
         duplication:
           startedMonth: 2018/06
@@ -17,7 +37,7 @@ ja:
               ・DB設計
               ・インフラ構築
             technologyUsed :
-              - ruby
+              - Ruby
               - AWS
               - Heroku
               - Stripe
