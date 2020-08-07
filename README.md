@@ -2,7 +2,7 @@
 design and elm portfolio
 
 
-### [View](https://github.com/meriy100/portfolio)
+### [View](https://meriy100.com)
 
 
 ## Configuration
