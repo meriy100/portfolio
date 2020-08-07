@@ -7,8 +7,8 @@ design and elm portfolio
 
 ## Configuration
 
-elm : 0.19.0
-npm : 6.13.7
+- elm : 0.19.0
+- npm : 6.13.7
 
 ```sh
 $ yarn install
