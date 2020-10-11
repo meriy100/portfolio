@@ -102,7 +102,7 @@ ja:
               - Pay.jp
               - MySql
               - Ruby on Rails
-              - JQuery
+              - jQuery
             members :
               - 'プロダクトオーナー  : 1人'
               -  'エンジニア : 2人'
@@ -123,7 +123,7 @@ ja:
               ・インフラ構築
             technologyUsed :
               - Ruby on Rails
-              - JQuery
+              - jQuery
               - AWS
               - Stripe
               - MySql
@@ -166,7 +166,7 @@ ja:
               - Ruby on Rails
               - AWS
               - MySql
-              - JQuery
+              - jQuery
             members :
               -  'エンジニア : 3人'
 
@@ -183,7 +183,7 @@ ja:
               - Ruby on Rails
               - AWS
               - MySql
-              - JQuery
+              - jQuery
               - Pay.jp
             members :
               -  'エンジニア : 3人'
@@ -200,7 +200,7 @@ ja:
               - Ruby on Rails
               - AWS
               - MySql
-              - JQuery
+              - jQuery
             members :
               - 'エンジニア : 2人'
               - 'デザイナー : 2人'
@@ -212,7 +212,7 @@ ja:
               ・新規機能実装における設計, 開発, レビュー
             technologyUsed :
               - Ruby on Rails
-              - JQuery
+              - jQuery
               - Angular.js
               - AWS
               - MySQL
@@ -226,7 +226,7 @@ ja:
               ・設計, 開発, レビュー
             technologyUsed :
               - Ruby on Rails
-              - JQuery
+              - jQuery
               - AWS
               - MySQL
             members :
@@ -243,7 +243,7 @@ ja:
               ・インフラ構築
             technologyUsed :
               - Ruby on Rails
-              - JQuery
+              - jQuery
               - AWS
               - MySQL
             members :
@@ -285,7 +285,7 @@ ja:
             technologyUsed :
               - Ruby on Rails
               - MySQL
-              - JQuery
+              - jQuery
             members :
               - '割愛'
   works:
