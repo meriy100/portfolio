@@ -9,6 +9,7 @@ $borderDotSeparate : 16px;
   width: 100%;
   position: fixed;
   z-index: 10;
+  text-shadow: 0 0 0 black;
   background-color: $color5;
   background-image: linear-gradient(to right,
           $color2 $borderDotSize1,
