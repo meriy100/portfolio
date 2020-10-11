@@ -81,6 +81,5 @@ viewHeader page =
 
 viewFooter : Html msg
 viewFooter =
-    H.div [ A.class "footer" ]
-        [ H.a [ A.href "https://meriy100.github.io" ] [ H.text "old portfolio" ]
-        ]
+    H.div []
+        []

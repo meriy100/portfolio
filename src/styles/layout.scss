@@ -1,4 +1,7 @@
 @import './variables/color';
+@import 'variables/mediaQeury';
+
+$basePx: 4px;
 
 html {
   height: 100%;
@@ -12,7 +15,7 @@ body {
     color: $color2;
   }
   p {
-    line-height: 24px;
+    line-height: $basePx * 6;
   }
 
   .sky {
@@ -99,31 +102,37 @@ main {
   grid-template-rows: 1fr;
   grid-template-columns: 40% 1fr;
   height: 100%;
+
+  @media screen and ( max-width:$spWidth) {
+    /*　画面サイズが768pxから1024pxまではここを読み込む　*/
+    grid-template-rows: ($basePx * 48) 1fr;
+    grid-template-columns: 1fr;
+  }
 }
 
 .profileFeatured {
-  grid-row: 1;
-  grid-column: 1;
-
   margin: auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &__title {
-    position: relative;
     font-size: 2.0em;
-    margin-bottom: 16px;
+    margin-bottom: $basePx * 4;
   }
   &__icon {
-    position: absolute;
     border-radius: 25px;
-    left: -48px;
-    height: 40px;
-    width: 40px;
+    left: -($basePx *  12);
+    height: ($basePx *  10);
+    width: ($basePx *  10);
+    margin-right: $basePx * 4;
+  }
+
+  @media screen and ( max-width:$spWidth) {
+    padding: $basePx * 4;
   }
 }
 
 .profileDocument {
-  grid-row: 1;
-  grid-column: 2;
   margin: auto 8px;
 
   &__title {
@@ -133,6 +142,10 @@ main {
 
   p {
     margin-bottom : 4px;
+  }
+
+  @media screen and ( max-width:$spWidth) {
+    padding: $basePx * 4;
   }
 }
 
