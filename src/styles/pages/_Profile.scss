@@ -1,0 +1,57 @@
+@import '../variables/color';
+@import '../variables/mediaQuery';
+@import '../variables/pixel';
+
+$basePx: 4px;
+
+.profileLayout {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 40% 1fr;
+  height: 100%;
+
+  @media screen and ( max-width:$spWidth) {
+    /*　画面サイズが768pxから1024pxまではここを読み込む　*/
+    grid-template-rows: ($basePx * 32) 1fr;
+    grid-template-columns: 1fr;
+  }
+}
+
+.profileFeatured {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__title {
+    margin-bottom: $basePx * 4;
+  }
+  &__icon {
+    border-radius: 25px;
+    left: -($basePx *  12);
+    height: ($basePx *  10);
+    width: ($basePx *  10);
+    margin-right: $basePx * 4;
+  }
+
+  @media screen and ( max-width:$spWidth) {
+    padding: $basePx * 4;
+  }
+}
+
+.profileDocument {
+  margin: auto 8px;
+
+  &__title {
+    font-size: 1.6em;
+    margin-bottom: 24px;
+  }
+
+  p {
+    margin-bottom : 4px;
+  }
+
+  @media screen and ( max-width:$spWidth) {
+    padding: $basePx * 4;
+  }
+}
+
