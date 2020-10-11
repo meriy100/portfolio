@@ -1,0 +1,104 @@
+@import '../variables/color';
+@import '../variables/mediaQuery';
+@import '../variables/pixel';
+
+.worksLayout {
+  padding: 0 $basePx * 20;
+
+  @media screen and ( max-width:$spWidth) {
+    padding: 0 $basePx * 4;
+  }
+
+  &__title {
+    font-size: 2.0em;
+    margin-bottom: $basePx * 4;
+  }
+  &__contents {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.workPanel {
+  display: grid;
+  grid-template-rows: $basePx * 65 1fr auto;
+  grid-template-columns: 1fr;
+  width: $basePx * 60;
+  margin: 0 $basePx * 3 $basePx * 6 $basePx * 3;
+  background-color: $color3;
+  padding: $basePx * 2;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  text-shadow: 0 0 0 black;
+
+  @media screen and ( max-width:$spWidth) {
+    grid-template-rows: auto;
+    grid-template-columns: $basePx * 16 1fr;
+    grid-template-areas:
+      "a b"
+      "a c";
+
+    width: 100%;
+  }
+
+
+  &__image {
+    height: $basePx * 65;
+    display: block;
+    overflow: hidden;
+    padding-bottom: $basePx * 6;
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      max-height: 100%;
+    }
+
+    @media screen and ( max-width:$spWidth) {
+      display: flex;
+      align-items: center;
+      grid-area: a;
+      height: auto;
+      padding-bottom: 0;
+
+      img {
+        object-fit: cover;
+        width: $basePx * 16;
+        height: $basePx * 16;
+      }
+    }
+  }
+
+  &__body {
+    margin-bottom: $basePx * 4;
+    padding-left: $basePx * 4;
+
+    @media screen and ( max-width:$spWidth) {
+      grid-area: b;
+      margin-bottom: $basePx * 2;
+    }
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    margin-bottom: $basePx * 4;
+
+    @media screen and ( max-width:$spWidth) {
+      margin-bottom: $basePx * 2;
+    }
+  }
+
+  &__description {
+    @media screen and ( max-width:$spWidth) {
+      display: none;
+    }
+  }
+
+  &__footer {
+    word-break: break-all;
+    padding-left: $basePx * 4;
+
+    @media screen and ( max-width:$spWidth) {
+      grid-area: c;
+    }
+  }
+}

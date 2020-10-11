@@ -1,0 +1,33 @@
+@import './variables/color';
+@import './variables/mediaQuery';
+@import './variables/pixel';
+
+html {
+  height: 100%;
+}
+body {
+  background: $color5;
+  height: 100%;
+  color: $color1;
+  text-shadow: 2px 2px 2px black;
+
+  a {
+    color: $color2;
+  }
+
+  h1 {
+    font-size: $basePx * 8;
+  }
+
+  p {
+    line-height: $basePx * 5;
+  }
+}
+
+main {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 120px 0 80px 0;
+  position: relative;
+  overflow-y: scroll;
+}
