@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "server": "npx elm-spa server",
+    "elm-spa": "npx elm-spa",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
