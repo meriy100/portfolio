@@ -1,8 +1,0 @@
-.idea
-node_modules
-build/
-elm-stuff/
-public/app.*.js
-public/app.js
-yarn-error.log
-tmp/
