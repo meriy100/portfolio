@@ -1,15 +1,42 @@
 module Pages.Home_ exposing (view)
 
-import Html as H
-import Html.Attributes as A
+import Css as C exposing (Color)
+import Html
+import Html.Styled as H
+import Html.Styled.Attributes as A
 import View exposing (View)
+
+
+type alias Theme =
+    { background : { default : Color }
+    , fontColor : { default : Color }
+    }
+
+
+theme : Theme
+theme =
+    let
+        base =
+            C.rgb 56 63 81
+
+        fontColor =
+            C.rgb 255 255 255
+    in
+    { background = { default = base }
+    , fontColor = { default = fontColor }
+    }
 
 
 view : View msg
 view =
     { title = "meriy100 portfolio"
     , body =
-        [ H.div []
+        [ H.div
+            [ A.css
+                [ C.backgroundColor theme.background.default
+                , C.color theme.fontColor.default
+                ]
+            ]
             [ H.div []
                 [ H.img [] []
                 , H.div []
@@ -30,5 +57,6 @@ view =
                 , H.p [] [ H.text "2019/09 からフリーランスとしてスタートアップのサービス開発を2社, 技術コンサル レビューを1社業務に従事し, 2020/03 より Photosynth Inc. にソフトウェアディベロッパーとして入社" ]
                 ]
             ]
+            |> H.toUnstyled
         ]
     }
