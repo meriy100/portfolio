@@ -5,6 +5,7 @@
   "author": "",
   "main": "index.js",
   "scripts": {
+    "server": "npx elm-spa server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
