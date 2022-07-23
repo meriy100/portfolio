@@ -1,10 +1,24 @@
-module Pages.Home_ exposing (view)
+module Pages.Home_ exposing (Model, Msg, page)
 
+import Cmd.Extra as CEx
 import Css as C exposing (Color)
 import Html
 import Html.Styled as H
 import Html.Styled.Attributes as A
+import Http
+import Page exposing (Page)
+import Request exposing (Request)
+import Shared
 import View exposing (View)
+
+
+type Msg
+    = GotPortfolio (Result Http.Error String)
+
+
+type alias Model =
+    { value : Maybe String
+    }
 
 
 type alias Theme =
@@ -27,8 +41,46 @@ theme =
     }
 
 
-view : View msg
-view =
+fetchPortfolio : Cmd Msg
+fetchPortfolio =
+    Http.get
+        { url = "https://asia-northeast1-portfolio-357112.cloudfunctions.net/fetchPortfolio"
+        , expect = Http.expectString GotPortfolio
+        }
+
+
+page : Shared.Model -> Request -> Page.With Model Msg
+page shared req =
+    Page.element
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = \_ -> Sub.none
+        }
+
+
+init : ( Model, Cmd Msg )
+init =
+    { value = Nothing }
+        |> CEx.with fetchPortfolio
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        GotPortfolio result ->
+            case result of
+                Ok value ->
+                    { value = Just value }
+                        |> CEx.pure
+
+                Err err ->
+                    { value = Nothing }
+                        |> CEx.pure
+
+
+view : Model -> View Msg
+view model =
     { title = "meriy100 portfolio"
     , body =
         [ H.div
@@ -44,6 +96,9 @@ view =
                         [ H.text "meriy100 profile"
                         ]
                     , H.address [] [ H.text "kouta@meriy100.com" ]
+                    , H.p []
+                        [ model.value |> Maybe.withDefault "..." |> H.text
+                        ]
                     ]
                 ]
             , H.article []
