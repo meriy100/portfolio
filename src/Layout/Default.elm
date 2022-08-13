@@ -36,7 +36,13 @@ layout title body =
                 , C.color theme.fontColor
                 ]
             ]
-            body
+            (H.div
+                []
+                [ H.a [ A.href "/" ] [ H.text "Profile" ]
+                , H.a [ A.href "/histories" ] [ H.text "Histories" ]
+                ]
+                :: body
+            )
         ]
             |> List.map H.toUnstyled
     }
