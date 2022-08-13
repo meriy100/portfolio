@@ -5,6 +5,7 @@ import Css as C exposing (Color)
 import Gen.Params.Histories exposing (Params)
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
+import Layout.Default as Layout
 import Page
 import Request
 import Shared
@@ -84,8 +85,7 @@ theme =
 
 view : Model -> View Msg
 view model =
-    { title = "meriy100 職務経歴"
-    , body =
+    Layout.layout "meriy100 職務経歴"
         [ H.div
             [ A.css
                 [ C.backgroundColor theme.background.default
@@ -101,5 +101,3 @@ view model =
                 ]
             ]
         ]
-            |> List.map H.toUnstyled
-    }

@@ -7,6 +7,7 @@ import Css as C exposing (Color)
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import Http
+import Layout.Default as Layout
 import Models.Profile exposing (Profile)
 import Page exposing (Page)
 import Request exposing (Request)
@@ -21,26 +22,6 @@ type Msg
 
 type alias Model =
     { maybeProfile : Maybe Profile
-    }
-
-
-type alias Theme =
-    { background : { default : Color }
-    , fontColor : { default : Color }
-    }
-
-
-theme : Theme
-theme =
-    let
-        base =
-            C.rgb 56 63 81
-
-        fontColor =
-            C.rgb 255 255 255
-    in
-    { background = { default = base }
-    , fontColor = { default = fontColor }
     }
 
 
@@ -119,25 +100,15 @@ viewMaybeProfile maybeProfile =
 
 view : Model -> View Msg
 view model =
-    { title = "meriy100 portfolio"
-    , body =
-        [ H.div
-            [ A.css
-                [ C.backgroundColor theme.background.default
-                , C.color theme.fontColor.default
-                ]
-            ]
-            [ H.div []
-                [ H.img [] []
-                , H.div []
-                    [ H.h1 []
-                        [ H.text "meriy100 profile"
-                        ]
-                    , H.address [] [ H.text "kouta@meriy100.com" ]
+    Layout.layout "meriy100 portfolio"
+        [ H.div []
+            [ H.img [] []
+            , H.div []
+                [ H.h1 []
+                    [ H.text "meriy100 profile"
                     ]
+                , H.address [] [ H.text "kouta@meriy100.com" ]
                 ]
-            , model.maybeProfile |> viewMaybeProfile
             ]
-            |> H.toUnstyled
+        , model.maybeProfile |> viewMaybeProfile
         ]
-    }
