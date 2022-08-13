@@ -1,11 +1,17 @@
 module Pages.Histories exposing (Model, Msg, page)
 
+import Api.Endpoint
+import Api.Host exposing (ApiHost)
 import Cmd.Extra as CEx
 import Css as C exposing (Color)
+import Effect exposing (Effect)
 import Gen.Params.Histories exposing (Params)
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
+import Http
+import Json.Decode as D
 import Layout.Default as Layout
+import Models.History exposing (History)
 import Page
 import Request
 import Shared
@@ -14,8 +20,8 @@ import View exposing (View)
 
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
-    Page.element
-        { init = init
+    Page.advanced
+        { init = init shared.apiHost
         , update = update
         , view = view
         , subscriptions = subscriptions
@@ -30,9 +36,11 @@ type alias Model =
     {}
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( {}, Cmd.none )
+init : ApiHost -> ( Model, Effect Msg )
+init apiHost =
+    ( {}
+    , fetchHistories apiHost
+    )
 
 
 
@@ -40,14 +48,41 @@ init =
 
 
 type Msg
-    = ReplaceMe
+    = GotHistories (Result Http.Error (List History))
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+fetchHistories : ApiHost -> Effect Msg
+fetchHistories apiHost =
+    { apiHost = apiHost
+    , body = Http.emptyBody
+    , decoder = Models.History.decoder |> D.list
+    , toMsg = GotHistories
+    , headers = []
+    , method = "GET"
+    , url = Api.Endpoint.histories
+    }
+        |> Api.Endpoint.request
+        |> Effect.fromCmd
+
+
+update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case msg of
-        ReplaceMe ->
-            model |> CEx.pure
+        GotHistories result ->
+            case result of
+                Ok histories ->
+                    ( {}
+                    , Effect.none
+                    )
+
+                Err err ->
+                    let
+                        _ =
+                            Debug.log "fetchHistory error" err
+                    in
+                    ( {}
+                    , Effect.none
+                    )
 
 
 
@@ -69,34 +104,13 @@ type alias Theme =
     }
 
 
-theme : Theme
-theme =
-    let
-        base =
-            C.rgb 56 63 81
-
-        fontColor =
-            C.rgb 255 255 255
-    in
-    { background = { default = base }
-    , fontColor = { default = fontColor }
-    }
-
-
 view : Model -> View Msg
 view model =
     Layout.layout "meriy100 職務経歴"
-        [ H.div
-            [ A.css
-                [ C.backgroundColor theme.background.default
-                , C.color theme.fontColor.default
-                ]
-            ]
+        [ H.div []
             [ H.div []
-                [ H.div []
-                    [ H.h1 []
-                        [ H.text "職務経歴"
-                        ]
+                [ H.h1 []
+                    [ H.text "職務経歴"
                     ]
                 ]
             ]

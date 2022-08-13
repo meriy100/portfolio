@@ -1,4 +1,4 @@
-module Api.Endpoint exposing (decoder, profile, request)
+module Api.Endpoint exposing (decoder, histories, profile, request)
 
 import Api.Host exposing (ApiHost)
 import Http as Http
@@ -58,3 +58,8 @@ url paths queryParams =
 profile : Endpoint
 profile =
     url [ "profile" ] []
+
+
+histories : Endpoint
+histories =
+    url [ "histories" ] []
