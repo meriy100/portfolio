@@ -1,6 +1,7 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
 import Api.Endpoint
+import Api.Host exposing (ApiHost)
 import Cmd.Extra as CEx
 import Css as C exposing (Color)
 import Html.Styled as H exposing (Html)
@@ -42,9 +43,10 @@ theme =
     }
 
 
-fetchProfile : Cmd Msg
-fetchProfile =
-    { body = Http.emptyBody
+fetchProfile : ApiHost -> Cmd Msg
+fetchProfile apiHost =
+    { apiHost = apiHost
+    , body = Http.emptyBody
     , decoder = Models.Profile.decoder
     , toMsg = GotProfile
     , headers = []
@@ -57,17 +59,17 @@ fetchProfile =
 page : Shared.Model -> Request -> Page.With Model Msg
 page shared req =
     Page.element
-        { init = init
+        { init = init shared.apiHost
         , update = update
         , view = view
         , subscriptions = \_ -> Sub.none
         }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : ApiHost -> ( Model, Cmd Msg )
+init apiHost =
     { maybeProfile = Nothing }
-        |> CEx.with fetchProfile
+        |> CEx.with (fetchProfile apiHost)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

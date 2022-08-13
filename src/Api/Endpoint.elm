@@ -18,7 +18,8 @@ decoder d =
 {-| Http.request, except it takes an Endpoint instead of a Url.
 -}
 request :
-    { body : Http.Body
+    { apiHost : ApiHost
+    , body : Http.Body
     , decoder : Decoder r
     , toMsg : Result Http.Error r -> msg
     , headers : List Http.Header
@@ -32,7 +33,7 @@ request config =
         , headers = config.headers
         , method = config.method
         , timeout = Just 1000
-        , url = unwrap config.url Api.Host.portfolio
+        , url = unwrap config.url config.apiHost
         , expect = decoder config.decoder |> Http.expectJson config.toMsg
         , tracker = Nothing
         }
@@ -56,4 +57,4 @@ url paths queryParams =
 
 profile : Endpoint
 profile =
-    url [ "updatePortfolio" ] [ Url.Builder.string "t" "profile" ]
+    url [ "profile" ] []

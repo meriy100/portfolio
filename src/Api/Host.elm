@@ -1,8 +1,15 @@
-module Api.Host exposing (ApiHost, portfolio, unwrap)
+module Api.Host exposing (ApiHost, decoder, default, unwrap)
+
+import Json.Decode as D
 
 
 type ApiHost
     = ApiHost String
+
+
+decoder : D.Decoder ApiHost
+decoder =
+    D.map ApiHost D.string
 
 
 unwrap : ApiHost -> String
@@ -10,6 +17,6 @@ unwrap (ApiHost url) =
     url
 
 
-portfolio : ApiHost
-portfolio =
-    ApiHost "https://asia-northeast1-portfolio-357112.cloudfunctions.net"
+default : ApiHost
+default =
+    ApiHost ""
