@@ -4,6 +4,8 @@ import Api.Endpoint
 import Api.Host exposing (ApiHost)
 import Cmd.Extra as CEx
 import Css as C exposing (Color)
+import Effect exposing (Effect)
+import Gen.Params.Home_ exposing (Params)
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import Http
@@ -12,20 +14,19 @@ import Models.Profile exposing (Profile)
 import Page exposing (Page)
 import Request exposing (Request)
 import Shared
+import Task
 import View exposing (View)
 
 
 type Msg
-    = ReplaceMe
-    | GotProfile (Result Http.Error Profile)
+    = GotProfile (Result Http.Error Profile)
 
 
 type alias Model =
-    { maybeProfile : Maybe Profile
-    }
+    {}
 
 
-fetchProfile : ApiHost -> Cmd Msg
+fetchProfile : ApiHost -> Effect Msg
 fetchProfile apiHost =
     { apiHost = apiHost
     , body = Http.emptyBody
@@ -36,39 +37,40 @@ fetchProfile apiHost =
     , url = Api.Endpoint.profile
     }
         |> Api.Endpoint.request
+        |> Effect.fromCmd
 
 
-page : Shared.Model -> Request -> Page.With Model Msg
+page : Shared.Model -> Request.With params -> Page.With Model Msg
 page shared req =
-    Page.element
+    Page.advanced
         { init = init shared.apiHost
         , update = update
-        , view = view
+        , view = view shared.maybeProfile
         , subscriptions = \_ -> Sub.none
         }
 
 
-init : ApiHost -> ( Model, Cmd Msg )
+init : ApiHost -> ( Model, Effect Msg )
 init apiHost =
-    { maybeProfile = Nothing }
-        |> CEx.with (fetchProfile apiHost)
+    ( {}
+    , fetchProfile apiHost
+    )
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case msg of
-        ReplaceMe ->
-            model |> CEx.pure
-
         GotProfile result ->
             case result of
-                Ok portfolio ->
-                    { maybeProfile = Just portfolio }
-                        |> CEx.pure
+                Ok profile ->
+                    ( {}
+                    , Shared.GotProfile profile |> Effect.fromShared
+                    )
 
                 Err err ->
-                    { maybeProfile = Nothing }
-                        |> CEx.pure
+                    ( {}
+                    , Effect.none
+                    )
 
 
 viewDescription : String -> Html Msg
@@ -98,8 +100,8 @@ viewMaybeProfile maybeProfile =
             H.article [] [ H.text "..." ]
 
 
-view : Model -> View Msg
-view model =
+view : Maybe Profile -> Model -> View Msg
+view maybeProfile model =
     Layout.layout "meriy100 portfolio"
         [ H.div []
             [ H.img [] []
@@ -110,5 +112,5 @@ view model =
                 , H.address [] [ H.text "kouta@meriy100.com" ]
                 ]
             ]
-        , model.maybeProfile |> viewMaybeProfile
+        , maybeProfile |> viewMaybeProfile
         ]

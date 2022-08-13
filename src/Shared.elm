@@ -1,7 +1,7 @@
 module Shared exposing
     ( Flags
     , Model
-    , Msg
+    , Msg(..)
     , init
     , subscriptions
     , update
@@ -10,6 +10,7 @@ module Shared exposing
 import Api.Host exposing (ApiHost)
 import Debug
 import Json.Decode as Json
+import Models.Profile exposing (Profile)
 import Request exposing (Request)
 
 
@@ -19,38 +20,50 @@ type alias Flags =
 
 type alias Model =
     { apiHost : ApiHost
+    , maybeProfile : Maybe Profile
     }
 
 
 type Msg
-    = NoOp
+    = GotProfile Profile
 
 
-flagDecoder : Json.Decoder Model
+flagDecoder : Json.Decoder ApiHost
 flagDecoder =
-    Json.map Model
-        (Json.field "apiHost" Api.Host.decoder)
+    Json.field "apiHost" Api.Host.decoder
 
 
 init : Request -> Flags -> ( Model, Cmd Msg )
 init _ flags =
     case Json.decodeValue flagDecoder flags of
-        Ok model ->
-            ( model, Cmd.none )
+        Ok apiHost ->
+            ( { apiHost = apiHost
+              , maybeProfile = Nothing
+              }
+            , Cmd.none
+            )
 
         Err err ->
             let
                 _ =
                     Debug.log (Json.errorToString err)
             in
-            ( { apiHost = Api.Host.default }, Cmd.none )
+            ( { apiHost = Api.Host.default
+              , maybeProfile = Nothing
+              }
+            , Cmd.none
+            )
 
 
 update : Request -> Msg -> Model -> ( Model, Cmd Msg )
 update _ msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
+        GotProfile profile ->
+            ( { model
+                | maybeProfile = Just profile
+              }
+            , Cmd.none
+            )
 
 
 subscriptions : Request -> Model -> Sub Msg
