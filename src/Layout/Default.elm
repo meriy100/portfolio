@@ -6,6 +6,7 @@ import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import UI.Component as Component
 import UI.Theme exposing (theme)
+import UI.Variable exposing (px16, px24)
 import View exposing (View)
 
 
@@ -17,7 +18,7 @@ layout route title body =
             [ A.css
                 [ C.backgroundColor theme.color1
                 , C.color theme.color4
-                , C.padding2 (C.px 24) (C.px 16)
+                , C.padding2 px24 px16
                 ]
             ]
             (Component.headerList
