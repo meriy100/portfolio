@@ -1,3 +1,32 @@
+# Configuration
+
+## Versions
+node v18.6.0
+
+npm v8.13.2
+
+yarn v1.22.19
+
+## Port
+
+|port|name|
+|:--|:--|
+|1234|http|
+
+## Package install
+
+```sh
+$ yarn install
+```
+
+## Run
+
+```sh
+$ yarn server
+```
+
+---
+
 # my new project
 > 🌳  built with [elm-spa](https://elm-spa.dev)
 
