@@ -15,7 +15,8 @@ import View exposing (View)
 
 
 type Msg
-    = GotProfile (Result Http.Error Profile)
+    = ReplaceMe
+    | GotProfile (Result Http.Error Profile)
 
 
 type alias Model =
@@ -75,6 +76,9 @@ init apiHost =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        ReplaceMe ->
+            model |> CEx.pure
+
         GotProfile result ->
             case result of
                 Ok portfolio ->
