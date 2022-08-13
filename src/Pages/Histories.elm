@@ -6,6 +6,7 @@ import Cmd.Extra as CEx
 import Css as C exposing (Color)
 import Effect exposing (Effect)
 import Gen.Params.Histories exposing (Params)
+import Gen.Route
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import Http
@@ -106,7 +107,8 @@ type alias Theme =
 
 view : Model -> View Msg
 view model =
-    Layout.layout "meriy100 職務経歴"
+    Layout.layout Gen.Route.Histories
+        "meriy100 職務経歴"
         [ H.div []
             [ H.div []
                 [ H.h1 []

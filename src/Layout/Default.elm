@@ -1,45 +1,34 @@
 module Layout.Default exposing (..)
 
 import Css as C exposing (Color)
+import Gen.Route exposing (Route(..))
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
+import UI.Component as Component
+import UI.Theme exposing (theme)
 import View exposing (View)
 
 
-type alias Theme =
-    { background : Color
-    , fontColor : Color
-    }
-
-
-theme : Theme
-theme =
-    let
-        base =
-            C.rgb 56 63 81
-
-        fontColor =
-            C.rgb 255 255 255
-    in
-    { background = base
-    , fontColor = fontColor
-    }
-
-
-layout : String -> List (Html msg) -> View msg
-layout title body =
+layout : Route -> String -> List (Html msg) -> View msg
+layout route title body =
     { title = title
     , body =
         [ H.div
             [ A.css
-                [ C.backgroundColor theme.background
-                , C.color theme.fontColor
+                [ C.backgroundColor theme.color1
+                , C.color theme.color4
+                , C.padding2 (C.px 24) (C.px 16)
                 ]
             ]
-            (H.div
-                []
-                [ H.a [ A.href "/" ] [ H.text "Profile" ]
-                , H.a [ A.href "/histories" ] [ H.text "Histories" ]
+            (Component.headerList
+                [ Component.headerListItem
+                    (route == Home_)
+                    "/"
+                    "Profile"
+                , Component.headerListItem
+                    (route == Histories)
+                    "/histories"
+                    "Histories"
                 ]
                 :: body
             )

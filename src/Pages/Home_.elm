@@ -6,6 +6,7 @@ import Cmd.Extra as CEx
 import Css as C exposing (Color)
 import Effect exposing (Effect)
 import Gen.Params.Home_ exposing (Params)
+import Gen.Route
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import Http
@@ -102,7 +103,9 @@ viewMaybeProfile maybeProfile =
 
 view : Maybe Profile -> Model -> View Msg
 view maybeProfile model =
-    Layout.layout "meriy100 portfolio"
+    Layout.layout
+        Gen.Route.Home_
+        "meriy100 portfolio"
         [ H.div []
             [ H.img [] []
             , H.div []
