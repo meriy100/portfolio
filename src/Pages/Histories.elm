@@ -16,6 +16,7 @@ import Models.History exposing (History)
 import Page
 import Request
 import Shared
+import UI.Component as UIC
 import View exposing (View)
 
 
@@ -107,13 +108,10 @@ type alias Theme =
 
 view : Model -> View Msg
 view model =
-    Layout.layout Gen.Route.Histories
+    Layout.layout Layout.horizontal
+        Gen.Route.Histories
         "meriy100 職務経歴"
-        [ H.div []
-            [ H.div []
-                [ H.h1 []
-                    [ H.text "職務経歴"
-                    ]
-                ]
+        [ H.article []
+            [ UIC.pageTitle "職務経歴"
             ]
         ]

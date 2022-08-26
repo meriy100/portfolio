@@ -60,3 +60,31 @@ headerListItem active path text =
             ]
             [ H.text text ]
         ]
+
+
+pageTitle : String -> Html msg
+pageTitle title =
+    H.h1
+        [ A.css
+            [ fontSize1
+            ]
+        ]
+        [ H.text title ]
+
+
+cardTitle : String -> String -> Html msg
+cardTitle title sub =
+    H.div []
+        [ H.h2
+            [ A.css
+                [ fontSize2
+                ]
+            ]
+            [ H.text title ]
+        , H.h3
+            [ A.css
+                [ fontSize3
+                ]
+            ]
+            [ H.text title ]
+        ]

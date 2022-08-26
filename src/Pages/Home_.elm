@@ -104,6 +104,7 @@ viewMaybeProfile maybeProfile =
 view : Maybe Profile -> Model -> View Msg
 view maybeProfile model =
     Layout.layout
+        Layout.center
         Gen.Route.Home_
         "meriy100 portfolio"
         [ H.div []

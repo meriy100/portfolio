@@ -6,22 +6,29 @@ import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import UI.Component as Component
 import UI.Theme exposing (theme)
-import UI.Variable exposing (px16, px24)
+import UI.Variable exposing (pct100, px124, px16, px24, px32)
 import View exposing (View)
 
 
-layout : Route -> String -> List (Html msg) -> View msg
-layout route title body =
+type alias MainLayout msg =
+    List (Html msg) -> Html msg
+
+
+layout : MainLayout msg -> Route -> String -> List (Html msg) -> View msg
+layout l route title body =
     { title = title
     , body =
-        [ H.div
+        [ H.nav
             [ A.css
-                [ C.backgroundColor theme.color1
-                , C.color theme.color4
-                , C.padding2 px24 px16
+                [ C.color theme.color4
+                , C.position C.fixed
+                , C.zIndex (C.int 10)
+                , C.paddingTop px24
+                , C.paddingLeft px16
+                , C.width pct100
                 ]
             ]
-            (Component.headerList
+            [ Component.headerList
                 [ Component.headerListItem
                     (route == Home_)
                     "/"
@@ -31,8 +38,37 @@ layout route title body =
                     "/histories"
                     "Histories"
                 ]
-                :: body
-            )
+            ]
+        , l body
         ]
             |> List.map H.toUnstyled
     }
+
+
+main_ : List C.Style -> List (Html msg) -> Html msg
+main_ attrs =
+    H.main_
+        [ A.css <|
+            [ C.backgroundColor theme.color1
+            , C.color theme.color4
+            , C.paddingTop px124
+            , C.paddingLeft px32
+            , C.position C.relative
+            , C.height pct100
+            , C.boxSizing C.borderBox
+            ]
+                ++ attrs
+        ]
+
+
+center : List (Html msg) -> Html msg
+center =
+    main_ []
+
+
+horizontal : List (Html msg) -> Html msg
+horizontal =
+    main_
+        [ C.property "display" "grid"
+        , C.property "grid-template-columns" "1fr 280px"
+        ]
