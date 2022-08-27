@@ -7,6 +7,33 @@ import UI.Theme exposing (theme)
 import UI.Variable exposing (..)
 
 
+ul attrs body =
+    H.ul
+        (attrs
+            ++ [ A.css
+                    [ C.listStyle C.disc
+                    , C.paddingLeft px16
+                    , C.lineHeight px20
+                    ]
+               ]
+        )
+        body
+
+
+li attrs body =
+    H.li
+        (attrs
+            ++ [ A.css
+                    [ C.marginBottom px8
+                    , C.lastChild
+                        [ C.marginBottom C.zero
+                        ]
+                    ]
+               ]
+        )
+        body
+
+
 headerList : List (Html msg) -> Html msg
 headerList =
     H.ul
@@ -72,19 +99,110 @@ pageTitle title =
         [ H.text title ]
 
 
-cardTitle : String -> String -> Html msg
-cardTitle title sub =
-    H.div []
+groupList items =
+    H.div [] items
+
+
+groupItem body =
+    H.div
+        [ A.css
+            [ C.marginBottom px32
+            , C.lastChild
+                [ C.marginBottom C.zero
+                ]
+            ]
+        ]
+        body
+
+
+groupTitle title sub =
+    H.div
+        [ A.css
+            [ C.displayFlex
+            , C.justifyContent C.spaceBetween
+            , C.flexWrap C.wrap
+            , C.marginBottom px16
+            , C.alignItems C.flexEnd
+            ]
+        ]
         [ H.h2
             [ A.css
                 [ fontSize2
+                , C.display C.inline
                 ]
             ]
-            [ H.text title ]
-        , H.h3
+            title
+        , H.span
             [ A.css
                 [ fontSize3
                 ]
             ]
-            [ H.text title ]
+            sub
         ]
+
+
+cardList cards =
+    H.div [] cards
+
+
+card body =
+    H.div
+        [ A.css
+            [ C.backgroundColor color3
+            , C.width px800
+            , boxShadow
+            , C.marginBottom px16
+            , C.padding px8
+            , C.lastChild
+                [ C.marginBottom C.zero
+                ]
+            ]
+        ]
+        body
+
+
+cardHeader title sub =
+    H.div
+        [ A.css
+            [ C.displayFlex
+            , C.justifyContent C.spaceBetween
+            , C.flexWrap C.wrap
+            , C.marginBottom px16
+            , C.alignItems C.flexEnd
+            ]
+        ]
+        [ H.h3
+            [ A.css
+                [ fontSize3
+                , C.display C.inline
+                ]
+            ]
+            title
+        , H.span
+            [ A.css
+                [ fontSize4
+                , C.width px216
+                ]
+            ]
+            sub
+        ]
+
+
+cardBody body =
+    H.div
+        [ A.css
+            [ C.displayFlex
+            , C.justifyContent C.spaceBetween
+            , C.flexWrap C.wrap
+            ]
+        ]
+        body
+
+
+cardRightUl body =
+    ul
+        [ A.css
+            [ C.width px200
+            ]
+        ]
+        body

@@ -10,6 +10,7 @@ module Shared exposing
 import Api.Host exposing (ApiHost)
 import Debug
 import Json.Decode as Json
+import Models.History exposing (History)
 import Models.Profile exposing (Profile)
 import Request exposing (Request)
 
@@ -21,11 +22,13 @@ type alias Flags =
 type alias Model =
     { apiHost : ApiHost
     , maybeProfile : Maybe Profile
+    , maybeHistories : Maybe (List History)
     }
 
 
 type Msg
     = GotProfile Profile
+    | GotHistories (List History)
 
 
 flagDecoder : Json.Decoder ApiHost
@@ -39,6 +42,7 @@ init _ flags =
         Ok apiHost ->
             ( { apiHost = apiHost
               , maybeProfile = Nothing
+              , maybeHistories = Nothing
               }
             , Cmd.none
             )
@@ -50,6 +54,7 @@ init _ flags =
             in
             ( { apiHost = Api.Host.default
               , maybeProfile = Nothing
+              , maybeHistories = Nothing
               }
             , Cmd.none
             )
@@ -61,6 +66,13 @@ update _ msg model =
         GotProfile profile ->
             ( { model
                 | maybeProfile = Just profile
+              }
+            , Cmd.none
+            )
+
+        GotHistories histories ->
+            ( { model
+                | maybeHistories = Just histories
               }
             , Cmd.none
             )

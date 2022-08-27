@@ -1,16 +1,13 @@
 module Models.History exposing (..)
 
 import Json.Decode as D exposing (Decoder)
+import Models.YearMonth exposing (YearMonth)
 
 
 type alias History =
     { organization : String
     , products : List Product
     }
-
-
-type YearMonth
-    = YearMonth Int Int
 
 
 type alias Product =
@@ -22,20 +19,13 @@ type alias Product =
     }
 
 
-yearMonthDecoder : Decoder YearMonth
-yearMonthDecoder =
-    D.map2 YearMonth
-        (D.field "Year" D.int)
-        (D.field "Month" D.int)
-
-
 productDecoder : Decoder Product
 productDecoder =
     D.map5 Product
         (D.field "Title" D.string)
         (D.field "Description" (D.list D.string))
-        (D.field "StartMonth" yearMonthDecoder)
-        (D.field "EndMonth" (D.nullable yearMonthDecoder))
+        (D.field "StartMonth" Models.YearMonth.decoder)
+        (D.field "EndMonth" (D.nullable Models.YearMonth.decoder))
         (D.field "Technologies" (D.list D.string))
 
 

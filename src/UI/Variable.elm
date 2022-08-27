@@ -43,12 +43,20 @@ px124 =
     C.px 124
 
 
+px200 =
+    C.px 200
+
+
 px216 =
     C.px 216
 
 
 px240 =
     C.px 240
+
+
+px800 =
+    C.px 800
 
 
 pct100 =
@@ -81,3 +89,23 @@ fontSize5 =
 
 fontSize6 =
     C.fontSize <| C.px 16
+
+
+color1 =
+    C.rgb 56 63 81
+
+
+color2 =
+    C.rgb 60 79 118
+
+
+color3 =
+    C.rgb 75 102 152
+
+
+color4 =
+    C.rgb 221 219 241
+
+
+color5 =
+    C.rgb 255 255 255

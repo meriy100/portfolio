@@ -69,6 +69,12 @@ center =
 horizontal : List (Html msg) -> Html msg
 horizontal =
     main_
-        [ C.property "display" "grid"
-        , C.property "grid-template-columns" "1fr 280px"
+        [ C.displayFlex
+        , C.justifyContent C.spaceBetween
         ]
+
+
+
+--[ C.property "display" "grid"
+--, C.property "grid-template-columns" "1fr 280px"
+--]
