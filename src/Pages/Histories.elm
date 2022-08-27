@@ -119,10 +119,25 @@ viewProduct product =
 
 viewHistory : History -> Html Msg
 viewHistory history =
+    let
+        maybeFirst =
+            history.products |> List.map .startAt |> Models.YearMonth.first
+
+        maybeLast =
+            history.products |> List.map .endAt |> Models.YearMonth.last
+
+        maybeStringRange =
+            maybeFirst
+                |> Maybe.map
+                    (\first -> Models.YearMonth.toStringRange first maybeLast)
+    in
     UIC.groupItem
         [ UIC.groupTitle
             [ H.text history.organization ]
-            [ H.text "2022/01 ~ 2022/05" ]
+            (maybeStringRange
+                |> Maybe.map (H.text >> List.singleton)
+                |> Maybe.withDefault []
+            )
         , history.products |> List.map viewProduct |> UIC.cardList
         ]
 

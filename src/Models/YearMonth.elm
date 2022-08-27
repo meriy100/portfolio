@@ -46,3 +46,47 @@ toStringRange start end =
                 |> Maybe.andThen (toString >> Just)
                 |> Maybe.withDefault ""
            )
+
+
+compareYearMonth (YearMonth aY aM) (YearMonth bY bM) =
+    if aY == bY then
+        compare aM bM
+
+    else
+        compare aY bY
+
+
+first : List YearMonth -> Maybe YearMonth
+first xs =
+    List.sortWith compareYearMonth xs
+        |> List.head
+
+
+last : List (Maybe YearMonth) -> Maybe YearMonth
+last xs =
+    let
+        large x y =
+            case compareYearMonth x y of
+                LT ->
+                    y
+
+                EQ ->
+                    x
+
+                GT ->
+                    x
+    in
+    case xs of
+        head :: tail ->
+            List.foldl
+                (\a ->
+                    \b ->
+                        a
+                            |> Maybe.andThen
+                                (\a_ -> Maybe.andThen (Just << large a_) b)
+                )
+                head
+                tail
+
+        [] ->
+            Nothing
