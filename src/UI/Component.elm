@@ -1,6 +1,7 @@
 module UI.Component exposing (..)
 
 import Css as C exposing (Color)
+import Css.Media as M
 import Html.Styled as H exposing (Html)
 import Html.Styled.Attributes as A
 import UI.Theme exposing (theme)
@@ -94,6 +95,7 @@ pageTitle title =
     H.h1
         [ A.css
             [ fontSize1
+            , C.marginBottom px48
             ]
         ]
         [ H.text title ]
@@ -153,6 +155,12 @@ card body =
             , boxShadow
             , C.marginBottom px16
             , C.padding px8
+            , mediaSm
+                [ C.width C.auto
+                ]
+            , mediaMd
+                [ C.width px480
+                ]
             , C.lastChild
                 [ C.marginBottom C.zero
                 ]

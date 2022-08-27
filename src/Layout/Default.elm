@@ -53,6 +53,7 @@ main_ attrs =
             , C.color theme.color4
             , C.paddingTop px124
             , C.paddingLeft px32
+            , C.paddingRight px32
             , C.position C.relative
             , C.height pct100
             , C.boxSizing C.borderBox

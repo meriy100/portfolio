@@ -1,6 +1,7 @@
 module UI.Variable exposing (..)
 
 import Css as C exposing (Color)
+import Css.Media as M
 
 
 px4 =
@@ -55,8 +56,16 @@ px240 =
     C.px 240
 
 
+px480 =
+    C.px 480
+
+
 px800 =
     C.px 800
+
+
+px820 =
+    C.px 820
 
 
 pct100 =
@@ -109,3 +118,13 @@ color4 =
 
 color5 =
     C.rgb 255 255 255
+
+
+mediaSm cs =
+    M.withMedia [ M.only M.screen [ M.maxWidth px480 ] ]
+        cs
+
+
+mediaMd cs =
+    M.withMedia [ M.only M.screen [ M.maxWidth px820 ] ]
+        cs
