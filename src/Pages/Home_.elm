@@ -2,20 +2,16 @@ module Pages.Home_ exposing (Model, Msg, page)
 
 import Api.Endpoint
 import Api.Host exposing (ApiHost)
-import Cmd.Extra as CEx
-import Css as C exposing (Color)
 import Effect exposing (Effect)
-import Gen.Params.Home_ exposing (Params)
 import Gen.Route
 import Html.Styled as H exposing (Html)
-import Html.Styled.Attributes as A
 import Http
 import Layout.Default as Layout
 import Models.Profile exposing (Profile)
 import Page exposing (Page)
 import Request exposing (Request)
 import Shared
-import Task
+import UI.Component as UIC
 import View exposing (View)
 
 
@@ -74,31 +70,24 @@ update msg model =
                     )
 
 
-viewDescription : String -> Html Msg
+viewDescription : String -> List (Html Msg)
 viewDescription description =
     description
         |> String.lines
-        |> List.map (H.p [] << List.singleton << H.text)
-        |> H.section []
-
-
-viewJob : String -> Html Msg
-viewJob job =
-    H.p [] [ H.text job ]
+        |> List.map (UIC.p [] << List.singleton << H.text)
 
 
 viewMaybeProfile : Maybe Profile -> Html Msg
 viewMaybeProfile maybeProfile =
     case maybeProfile of
         Just profile ->
-            H.article []
-                [ H.h2 [] [ H.text "Kouta Kariyado - 苅宿 航太" ]
-                , viewJob profile.job
-                , viewDescription profile.description
-                ]
+            UIC.homeDescription
+                [ H.text "Kouta Kariyado - 苅宿 航太" ]
+                [ H.text profile.job ]
+                (viewDescription profile.description)
 
         Nothing ->
-            H.article [] [ H.text "..." ]
+            H.article [] []
 
 
 view : Maybe Profile -> Model -> View Msg
@@ -107,14 +96,9 @@ view maybeProfile model =
         Layout.center
         Gen.Route.Home_
         "meriy100 portfolio"
-        [ H.div []
-            [ H.img [] []
-            , H.div []
-                [ H.h1 []
-                    [ H.text "meriy100 profile"
-                    ]
-                , H.address [] [ H.text "kouta@meriy100.com" ]
-                ]
+        [ UIC.homeTitle
+            [ H.text "meriy100 profile"
             ]
+            [ H.address [] [ H.text "kouta@meriy100.com" ] ]
         , maybeProfile |> viewMaybeProfile
         ]

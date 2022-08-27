@@ -35,6 +35,17 @@ li attrs body =
         body
 
 
+p attrs body =
+    H.p
+        (attrs
+            ++ [ A.css
+                    [ C.marginBottom px4
+                    ]
+               ]
+        )
+        body
+
+
 headerList : List (Html msg) -> Html msg
 headerList =
     H.ul
@@ -214,3 +225,50 @@ cardRightUl body =
             ]
         ]
         body
+
+
+homeTitle title address =
+    H.div
+        [ A.css
+            [ C.marginBottom px48
+            ]
+        ]
+        [ H.h1
+            [ A.css
+                [ fontSize1
+                , C.marginBottom px8
+                ]
+            ]
+            title
+        , H.address [] address
+        ]
+
+
+homeDescription name job body =
+    H.article
+        [ A.css
+            [ C.width px800
+            , C.paddingLeft px48
+            , C.paddingRight px48
+            ]
+        ]
+        [ H.h2
+            [ A.css
+                [ fontSize2
+                , C.marginBottom px16
+                ]
+            ]
+            name
+        , H.p
+            [ A.css
+                [ C.marginBottom px8
+                ]
+            ]
+            job
+        , H.section
+            [ A.css
+                [ C.lineHeight px24
+                ]
+            ]
+            body
+        ]

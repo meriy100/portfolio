@@ -79,11 +79,9 @@ last xs =
     case xs of
         head :: tail ->
             List.foldl
-                (\a ->
-                    \b ->
-                        a
-                            |> Maybe.andThen
-                                (\a_ -> Maybe.andThen (Just << large a_) b)
+                (\b ->
+                    Maybe.andThen
+                        (\a -> Maybe.map (large a) b)
                 )
                 head
                 tail

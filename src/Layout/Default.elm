@@ -64,7 +64,12 @@ main_ attrs =
 
 center : List (Html msg) -> Html msg
 center =
-    main_ []
+    main_
+        [ C.displayFlex
+        , C.justifyContent C.center
+        , C.alignItems C.center
+        , C.flexWrap C.wrap
+        ]
 
 
 horizontal : List (Html msg) -> Html msg
@@ -73,9 +78,3 @@ horizontal =
         [ C.displayFlex
         , C.justifyContent C.spaceBetween
         ]
-
-
-
---[ C.property "display" "grid"
---, C.property "grid-template-columns" "1fr 280px"
---]
