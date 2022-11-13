@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
 import Nl2Br from '../components/nl2br'
-import { start } from 'repl'
+import { yearMonthRange } from '../entities/YearMonth'
+import { History, historyStartMonth, historyEndMonth, compareHistory, compareProduct } from '../entities/History'
 
 interface Response<T> {
   data: T
@@ -11,36 +12,6 @@ interface Profile {
   job: string
   description: string
   timestamp: string
-}
-
-interface YearMonth {
-  year: number
-  month: number
-}
-
-interface Product {
-  title: string
-  startMonth: YearMonth
-  endMonth: YearMonth | null
-  description: string[]
-  technologies: string[]
-}
-
-interface History {
-  organization: string
-  products: Product[]
-}
-
-const yearMonthToString = (yearMonth: YearMonth) => {
-  return `${yearMonth.year}/${yearMonth.month.toString().padStart(2, '0')}`
-}
-
-const yearMonthRange = (startMonth: YearMonth, endMonth: YearMonth | null) => {
-  if (!endMonth) {
-    return yearMonthToString(startMonth)
-  }
-
-  return `${yearMonthToString(startMonth)} ~ ${yearMonthToString(endMonth)}`
 }
 
 async function fetchProfile() {
@@ -80,28 +51,37 @@ export default function Home({ profile, histories }: { profile: Profile; histori
         </article>
         <div>
           <h1>職務経歴</h1>
-          {histories.map((history) => (
-            <div key={history.organization}>
-              <h2>{history.organization}</h2>
-              {history.products.map((product) => (
-                <div key={product.title}>
-                  <h3>{product.title}</h3>
-                  <p>{yearMonthRange(product.startMonth, product.endMonth)}</p>
-                  <ul>
-                    {product.description.map((text) => (
-                      <li key={text}>{text}</li>
-                    ))}
-                  </ul>
-                  <h4>利用技術など</h4>
-                  <ul>
-                    {product.technologies.map((text) => (
-                      <li key={text}>{text}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          ))}
+          {histories
+            .sort(compareHistory)
+            .reverse()
+            .map((history) => (
+              <div key={history.organization}>
+                <h2>
+                  {history.organization}
+                  <span>{yearMonthRange(historyStartMonth(history), historyEndMonth(history))}</span>
+                </h2>
+                {history.products
+                  .sort(compareProduct)
+                  .reverse()
+                  .map((product) => (
+                    <div key={product.title}>
+                      <h3>{product.title}</h3>
+                      <p>{yearMonthRange(product.startMonth, product.endMonth)}</p>
+                      <ul>
+                        {product.description.map((text) => (
+                          <li key={text}>{text}</li>
+                        ))}
+                      </ul>
+                      <h4>利用技術など</h4>
+                      <ul>
+                        {product.technologies.map((text) => (
+                          <li key={text}>{text}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+              </div>
+            ))}
         </div>
       </main>
       <footer className={styles.footer}></footer>
