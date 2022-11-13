@@ -1,10 +1,12 @@
 import React from 'react'
 
 const nl2br = (text: string) => {
-  const regex = /(\r*\n)/g
+  const regex = /(\n)/g
+  let idx = 0
   return text.split(regex).map((line) => {
     if (line.match(regex)) {
-      return React.createElement('br')
+      idx += 1
+      return React.createElement('br', { key: idx })
     } else {
       return line
     }
