@@ -56,36 +56,39 @@ export default function Home({ profile, histories }: { profile: Profile; histori
             .reverse()
             .map((history) => (
               <div key={history.organization} className={styles.organization}>
-                <h2>
-                  {history.organization}
-                  <span className={styles.yearMonthRange}>
-                    {yearMonthRange(historyStartMonth(history), historyEndMonth(history))}
-                  </span>
-                </h2>
-                {history.products
-                  .sort(compareProduct)
-                  .reverse()
-                  .map((product) => (
-                    <div key={product.title} className={styles.product}>
-                      <h3>
-                        {product.title}
-                        <span className={styles.yearMonthRange}>
-                          {yearMonthRange(product.startMonth, product.endMonth)}
-                        </span>
-                      </h3>
-                      <ul>
-                        {product.description.map((text) => (
-                          <li key={text}>{text}</li>
-                        ))}
-                      </ul>
-                      <h4>利用技術など</h4>
-                      <ul>
-                        {product.technologies.map((text) => (
-                          <li key={text}>{text}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <details>
+                  <summary>
+                    <h2 className={styles.organizationName}>
+                      {history.organization}
+                      <span className={styles.yearMonthRange}>
+                        {yearMonthRange(historyStartMonth(history), historyEndMonth(history))}
+                      </span>
+                    </h2>
+                  </summary>
+                  {history.products
+                    .sort(compareProduct)
+                    .reverse()
+                    .map((product) => (
+                      <div key={product.title} className={styles.product}>
+                        <h3>
+                          {product.title}
+                          <span className={styles.yearMonthRange}>
+                            {yearMonthRange(product.startMonth, product.endMonth)}
+                          </span>
+                        </h3>
+                        <ul>
+                          {product.description.map((text) => (
+                            <li key={text}>{text}</li>
+                          ))}
+                        </ul>
+                        <ul>
+                          {product.technologies.map((text) => (
+                            <li key={text}>{text}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                </details>
               </div>
             ))}
         </div>

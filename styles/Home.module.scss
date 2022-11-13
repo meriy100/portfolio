@@ -30,9 +30,20 @@
 }
 
 .histories {
+
+  summary {
+    margin-bottom: 1rem;
+    h2 {
+      padding-left: 0.5rem;
+    }
+    &::marker {
+    }
+  }
   .organization {
     margin-bottom: 2rem;
-
+    .organizationName {
+      display: inline;
+    }
   }
 
   .product {
