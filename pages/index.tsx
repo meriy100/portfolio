@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Nl2Br from '../components/nl2br'
 
 interface Response<T> {
   data: T
@@ -32,7 +33,7 @@ export default function Home({ profile }: { profile: Profile }) {
         <article className={styles.description}>
           Kouta Kariyado - 苅宿 航太
           <p>{profile.job}</p>
-          <p>{profile.description}</p>
+          <Nl2Br text={profile.description} />
         </article>
       </main>
 
