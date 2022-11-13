@@ -14,6 +14,12 @@ export default function Home() {
         <h1 className={styles.title}>
           meriy100 portfolio
         </h1>
+        <address>
+          kouta@meriy100.com
+        </address>
+        <article className={styles.description}>
+          Kouta Kariyado - 苅宿 航太
+        </article>
       </main>
 
       <footer className={styles.footer}>
