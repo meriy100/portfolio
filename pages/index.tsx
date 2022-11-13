@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import Nl2Br from '../components/nl2br'
 import { yearMonthRange } from '../entities/YearMonth'
@@ -44,11 +45,11 @@ export default function Home({ profile, histories }: { profile: Profile; histori
       <main className={styles.main}>
         <h1 className={styles.title}>meriy100 portfolio</h1>
         <div className={styles.iconText}>
-          <img src="/meriy100.jpeg" alt="meriy100 icon" className={styles.icon} />
+          <Image src="/meriy100.jpeg" alt="meriy100 icon" className={styles.icon} width={24} height={24} />
           <address>kouta@meriy100.com</address>
         </div>
         <div className={styles.iconText}>
-          <img src="/github.svg" alt="github" className={styles.icon} />
+          <Image src="/github.svg" alt="github" className={styles.icon} width={24} height={24} />
           <a href="https://github.com/meriy100">https://github.com/meriy100</a>
         </div>
         <article className={styles.description}>
