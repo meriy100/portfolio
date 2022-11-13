@@ -49,24 +49,30 @@ export default function Home({ profile, histories }: { profile: Profile; histori
           <p>{profile.job}</p>
           <Nl2Br text={profile.description} />
         </article>
-        <div>
-          <h1>職務経歴</h1>
+        <div className={styles.histories}>
+          <h1>Works</h1>
           {histories
             .sort(compareHistory)
             .reverse()
             .map((history) => (
-              <div key={history.organization}>
+              <div key={history.organization} className={styles.organization}>
                 <h2>
                   {history.organization}
-                  <span>{yearMonthRange(historyStartMonth(history), historyEndMonth(history))}</span>
+                  <span className={styles.yearMonthRange}>
+                    {yearMonthRange(historyStartMonth(history), historyEndMonth(history))}
+                  </span>
                 </h2>
                 {history.products
                   .sort(compareProduct)
                   .reverse()
                   .map((product) => (
-                    <div key={product.title}>
-                      <h3>{product.title}</h3>
-                      <p>{yearMonthRange(product.startMonth, product.endMonth)}</p>
+                    <div key={product.title} className={styles.product}>
+                      <h3>
+                        {product.title}
+                        <span className={styles.yearMonthRange}>
+                          {yearMonthRange(product.startMonth, product.endMonth)}
+                        </span>
+                      </h3>
                       <ul>
                         {product.description.map((text) => (
                           <li key={text}>{text}</li>
