@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import Nl2Br from '../components/nl2br'
+import { start } from 'repl'
 
 interface Response<T> {
   data: T
@@ -12,15 +13,15 @@ interface Profile {
   timestamp: string
 }
 
-interface Month {
+interface YearMonth {
   year: number
   month: number
 }
 
 interface Product {
   title: string
-  startMonth: Month
-  endMonth: Month | null
+  startMonth: YearMonth
+  endMonth: YearMonth | null
   description: string[]
   technologies: string[]
 }
@@ -28,6 +29,18 @@ interface Product {
 interface History {
   organization: string
   products: Product[]
+}
+
+const yearMonthToString = (yearMonth: YearMonth) => {
+  return `${yearMonth.year}/${yearMonth.month.toString().padStart(2, '0')}`
+}
+
+const yearMonthRange = (startMonth: YearMonth, endMonth: YearMonth | null) => {
+  if (!endMonth) {
+    return yearMonthToString(startMonth)
+  }
+
+  return `${yearMonthToString(startMonth)} ~ ${yearMonthToString(endMonth)}`
 }
 
 async function fetchProfile() {
@@ -65,11 +78,32 @@ export default function Home({ profile, histories }: { profile: Profile; histori
           <p>{profile.job}</p>
           <Nl2Br text={profile.description} />
         </article>
+        <div>
+          <h1>職務経歴</h1>
+          {histories.map((history) => (
+            <div key={history.organization}>
+              <h2>{history.organization}</h2>
+              {history.products.map((product) => (
+                <div key={product.title}>
+                  <h3>{product.title}</h3>
+                  <p>{yearMonthRange(product.startMonth, product.endMonth)}</p>
+                  <ul>
+                    {product.description.map((text) => (
+                      <li key={text}>{text}</li>
+                    ))}
+                  </ul>
+                  <h4>利用技術など</h4>
+                  <ul>
+                    {product.technologies.map((text) => (
+                      <li key={text}>{text}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </main>
-      <div>
-        <h1>職務経歴</h1>
-      </div>
-
       <footer className={styles.footer}></footer>
     </div>
   )

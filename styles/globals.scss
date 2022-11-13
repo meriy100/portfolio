@@ -7,9 +7,15 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #0070f3;
   text-decoration: none;
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: underline;
+  }
 }
+
 
 * {
   box-sizing: border-box;
