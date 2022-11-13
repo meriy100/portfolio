@@ -2,6 +2,20 @@
   padding: 0 2rem;
 }
 
+.iconText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+
+  img.icon {
+    margin-right: 0.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 25px;
+  }
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -12,7 +26,7 @@
   align-items: center;
 
   .title {
-    margin: 0;
+    margin: 0 0 1rem 0;
     line-height: 1.15;
     font-size: 4rem;
   }
