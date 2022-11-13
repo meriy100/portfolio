@@ -12,13 +12,43 @@ interface Profile {
   timestamp: string
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_HOST}/profile`)
-  const data: Response<Profile> = await res.json()
-  return { props: { profile: data.data } }
+interface Month {
+  year: number
+  month: number
 }
 
-export default function Home({ profile }: { profile: Profile }) {
+interface Product {
+  title: string
+  startMonth: Month
+  endMonth: Month | null
+  description: string[]
+  technologies: string[]
+}
+
+interface History {
+  organization: string
+  products: Product[]
+}
+
+async function fetchProfile() {
+  const res = await fetch(`${process.env.API_HOST}/profile`)
+  const data: Response<Profile> = await res.json()
+  return data.data
+}
+
+async function fetchHistories() {
+  const res = await fetch(`${process.env.API_HOST}/histories`)
+  const data: Response<History[]> = await res.json()
+  return data.data
+}
+
+export async function getServerSideProps() {
+  const profile = await fetchProfile()
+  const histories = await fetchHistories()
+  return { props: { profile, histories } }
+}
+
+export default function Home({ profile, histories }: { profile: Profile; histories: History[] }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -36,6 +66,9 @@ export default function Home({ profile }: { profile: Profile }) {
           <Nl2Br text={profile.description} />
         </article>
       </main>
+      <div>
+        <h1>職務経歴</h1>
+      </div>
 
       <footer className={styles.footer}></footer>
     </div>
