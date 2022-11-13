@@ -13,7 +13,7 @@ interface Profile {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:8082/profile`)
+  const res = await fetch(`${process.env.API_HOST}/profile`)
   const data: Response<Profile> = await res.json()
   return { props: { profile: data.data } }
 }
