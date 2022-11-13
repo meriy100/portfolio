@@ -43,7 +43,14 @@ export default function Home({ profile, histories }: { profile: Profile; histori
 
       <main className={styles.main}>
         <h1 className={styles.title}>meriy100 portfolio</h1>
-        <address>kouta@meriy100.com</address>
+        <div className={styles.iconText}>
+          <img src="/meriy100.jpeg" alt="meriy100 icon" className={styles.icon} />
+          <address>kouta@meriy100.com</address>
+        </div>
+        <div className={styles.iconText}>
+          <img src="/github.svg" alt="github" className={styles.icon} />
+          <a href="https://github.com/meriy100">https://github.com/meriy100</a>
+        </div>
         <article className={styles.description}>
           Kouta Kariyado - 苅宿 航太
           <p>{profile.job}</p>
