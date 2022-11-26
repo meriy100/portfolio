@@ -27,7 +27,7 @@ async function fetchHistories() {
   return data.data
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const profile = await fetchProfile()
   const histories = await fetchHistories()
   return { props: { profile, histories } }
