@@ -13,6 +13,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v4
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --ignore-scripts
+        run: yarn install
       - name: Run lint check
         run: yarn lint
