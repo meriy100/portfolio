@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^2.7.1"
+    "prettier": "^3.2.5"
   },
   "engine": {
     "node": "20.11.1"
